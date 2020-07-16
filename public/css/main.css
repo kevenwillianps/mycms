@@ -1,0 +1,112 @@
+/*
+    DEMO STYLE
+*/
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #555555;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+.border-dashed{
+
+    border: 1px dashed rgba(0,0,0,.125) !important;
+
+}
+
+.border-left-dashed{
+
+    border-left: 1px dashed #dee2e6 !important;
+
+}
+
+.btn-default{
+    color: #fff;
+    background-color: #1a212f;
+    border-color: #1a212f;
+}
+
+.btn-default:hover{
+    color: #fff;
+    background-color: #252e40;
+    border-color: #252e40;
+}
+.progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #4E91E8;
+    transition: width .6s ease;
+}
+
+.border-dashed-default{
+
+    border: 4px dashed #5D9AEA;
+
+}
+
+.border-dashed-table{
+
+    border : 1px dashed #dee2e6;
+
+}
+
+.border-top-dashed-table{
+
+    border : 1px dashed #dee2e6;
+
+}
+
+.table-image td, .table-image th {
+    vertical-align: middle;
+}
+
+.navbar-card{
+
+    margin-bottom: 0;
+
+}

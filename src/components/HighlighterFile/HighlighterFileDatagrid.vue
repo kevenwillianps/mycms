@@ -1,0 +1,290 @@
+<template>
+
+    <div>
+
+        <h4>
+
+            <i class="fas fa-check mr-1"></i>Marcadores de Arquivos
+
+        </h4>
+
+        <ModalConfirm title="Atenção!" message="Deseja excluir este registro ?" v-on:ConfirmRequest="Delete"></ModalConfirm>
+
+        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
+
+            <div class="container">
+
+                <div class="media m-4">
+
+                    <div class="media-body">
+
+                        <h3 class="mb-0 text-center">
+
+                            <strong>
+
+                                Cadastrar Marcador
+
+                            </strong>
+
+                        </h3>
+
+                        <h5 class="mt-2 text-center">
+
+                            <router-link v-bind:to="{name : 'highlighter-file-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, highlighter_file_id : 0}}" class="stretched-link text-decoration-none badge badge-light">
+
+                                Clique para cadastrar
+
+                            </router-link>
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <Progress percent="100"></Progress>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row mt-3" v-else>
+
+            <div class="col-md-3 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            <span class="badge badge-primary">
+
+                                {{ result.highlighter_file_id }}
+
+                            </span>
+
+                            {{ result.name }}
+
+                        </h5>
+
+                        <div class="card-text">
+
+                            {{ result.description }}
+
+                        </div>
+
+                    </div>
+
+                    <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                            <span class="navbar-toggler-icon"></span>
+
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                            <ul class="navbar-nav mr-auto">
+
+                                <li class="nav-item">
+
+                                    <router-link class="nav-link" type="button" v-bind:to="{name : 'highlighter-file-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, highlighter_file_id : result.highlighter_file_id}}">
+
+                                        <i class="fas fa-pencil-alt mr-1"></i>Editar
+
+                                    </router-link>
+
+                                </li>
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.highlighter_file_id = result.highlighter_file_id">
+
+                                        <i class="fas fa-fire-alt mr-1"></i>Excluir
+
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </nav>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
+
+<script type="text/ecmascript-6">
+
+    import axios from 'axios';
+    import Progress from '../Geral/Progress';
+    import ModalConfirm from '../Geral/ModalConfirm';
+
+    export default {
+
+        name: "HighlighterFileDatagrid",
+
+        components: {
+
+            Progress,
+            ModalConfirm,
+
+        },
+
+        data() {
+
+            return {
+
+                /** Controle do HTML **/
+                form: {
+
+                    progress_bar: false,
+                    class: null,
+
+                },
+                /** Grupo de variáveis que guarda os dados de consultas sql's **/
+                query: {
+
+                    result: [],
+                    message: null,
+                    user_functions: [],
+
+                },
+                /** Grupo de variáveis que guardar os dados dos campos do formulário **/
+                inputs: {
+
+                    highlighter_file_id: null,
+                    name: null,
+                    description: null,
+                    date_register: null,
+                    date_update: null,
+
+                },
+                /** Dados da Seção **/
+                session: {
+
+                    user_id: this.$route.params.user_id,
+                    user_function_id: this.$route.params.user_function_id,
+
+                },
+
+            }
+
+        },
+
+        methods: {
+
+            /** Listagem de Classes **/
+            List() {
+
+                /** Deixo a barra de progresso disponivel **/
+                this.form.progress_bar = true;
+
+                /** Envio uma requisição ao meu backend **/
+                axios.post('router.php?TABLE=HIGHLIGHTER_FILE&ACTION=HIGHLIGHTER_FILE_DATAGRID')
+
+                    /** Caso tenha sucesso **/
+                    .then(response => {
+
+                        /** Guardo minha resposta em uma váriavel **/
+                        this.query.result = response.data.result;
+
+                        /** Defino um delay no progresso **/
+                        setTimeout(() => {
+
+                            this.form.progress_bar = false;
+
+                        }, 1000);
+
+                    })
+
+                    /** Caso tenha falha **/
+                    .catch(response => {
+
+                        console.log('Erro:' + response);
+
+                    });
+
+            },
+
+            /** Exclusão de Classes **/
+            Delete() {
+
+                this.form.progress_bar = true;
+
+                /** Evnio uma requisão ao meu servidor pelo método 'Post' **/
+                axios.post('router.php?TABLE=HIGHLIGHTER_FILE&ACTION=HIGHLIGHTER_FILE_DELETE', {
+                    inputs: this.inputs
+                })
+
+                    /** Caso tenha sucesso **/
+                    .then(response => {
+
+                        /** Verifico a categoria do meu retorno **/
+                        switch (response.data.cod) {
+
+                            case 1:
+
+                                this.List();
+                                window.setTimeout(() => {
+
+                                    this.form.progress_bar = false;
+
+                                }, 1000);
+                                break;
+
+                            default:
+
+                                window.setTimeout(() => {
+
+                                    this.form.progress_bar = false;
+
+                                }, 1000);
+                                break;
+
+                        }
+
+                    })
+
+                    .catch(response => {
+
+                        console.log('Erro' + response);
+
+                    })
+
+            },
+
+        },
+
+        created() {
+
+            this.List();
+            console.log('Componente "HighlighterFileDatagrid", montado com sucesso!')
+
+        },
+
+    }
+
+</script>
