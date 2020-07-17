@@ -38,9 +38,9 @@
 
                 <h4>
 
-                    <button class="btn btn-default" type="button" v-on:click="Save()">
+                    <button class="btn btn-primary" v-on:click="Save()">
 
-                        Salvar
+                        <i class="fas fa-paper-plane"></i> Salvar
 
                     </button>
 
@@ -104,13 +104,31 @@
 
                 <div class="card shadow-sm">
 
+                    <div class="card-body">
+
+                        <h4 class="card-title">
+
+                            <span class="badge badge-primary">
+
+                                <i class="fas fa-hashtag mr-1"></i>{{ result.content_sub_file_id }}
+
+                            </span>
+
+                        </h4>
+
+                    </div>
+
                     <img v-bind:src="result.path + '/thumbnail/' + result.name" class="card-img-top" v-bind:alt="result.name">
 
                     <div class="card-body">
 
                         <h6 class="card-title">
 
-                            <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span>
+                            <span class="text-muted">
+
+                                <i class="far fa-clock mr-1"></i> {{ result.date_register }}
+
+                            </span>
 
                         </h6>
 
@@ -144,15 +162,15 @@
 
                     </div>
 
-                    <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer card-footer-transparent">
+                    <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
 
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_sub_file_datagrid_' + result.content_sub_file_id" v-bind:aria-controls="'#navbar_content_sub_file_datagrid_' + result.content_sub_file_id" aria-expanded="false" aria-label="Toggle navigation">
 
                             <span class="navbar-toggler-icon"></span>
 
                         </button>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse" v-bind:id="'navbar_content_sub_file_datagrid_' + result.content_sub_file_id">
 
                             <ul class="navbar-nav mr-auto">
 

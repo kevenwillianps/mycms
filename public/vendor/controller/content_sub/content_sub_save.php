@@ -26,14 +26,14 @@ try {
         $content_sub_id           = isset($inputs['inputs']['content_sub_id'])           ? (int)$main->antiInjection($inputs['inputs']['content_sub_id'])                 : 0;
         $content_id               = isset($inputs['inputs']['content_id'])               ? (int)$main->antiInjection($inputs['inputs']['content_id'])                     : 0;
         $user_id                  = isset($inputs['inputs']['user_id'])                  ? (int)$main->antiInjection($inputs['inputs']['user_id'])                        : $_SESSION['MYSUPPORT-USER-ID'];
-        $situation_id             = isset($inputs['inputs']['situation_id'])             ? (int)$main->antiInjection($inputs['inputs']['situation_id'])                   : 1;
-        $menu_position            = isset($inputs['inputs']['menu_position'])            ? (int)$main->antiInjection($inputs['inputs']['menu_position'])                  : 1;
-        $highlighter_id           = isset($inputs['inputs']['highlighter_id'])           ? (int)$main->antiInjection($inputs['inputs']['highlighter_id'])                 : 1;
-        $url                      = isset($inputs['inputs']['url'])                      ? (string)$main->antiInjection($inputs['inputs']['url'])                         : 'NÃO INFORMADO';
-        $title                    = isset($inputs['inputs']['title'])                    ? (string)$main->antiInjection($inputs['inputs']['title'])                       : 'NÃO INFORMADO';
-        $title_menu               = isset($inputs['inputs']['title_menu'])               ? (string)$main->antiInjection($inputs['inputs']['title_menu'])                  : 'NÃO INFORMADO';
-        $description              = isset($inputs['inputs']['description'])              ? (string)$main->antiInjection($inputs['inputs']['description'])                 : 'NÃO INFORMADO';
-        $content_resume           = isset($inputs['inputs']['content_resume'])           ? (string)$main->antiInjection($inputs['inputs']['content_resume'])              : 'NÃO INFORMADO';
+        $situation_id             = isset($inputs['inputs']['situation_id'])             ? (int)$main->antiInjection($inputs['inputs']['situation_id'])                   : 0;
+        $menu_position            = isset($inputs['inputs']['menu_position'])            ? (int)$main->antiInjection($inputs['inputs']['menu_position'])                  : 0;
+        $highlighter_id           = isset($inputs['inputs']['highlighter_id'])           ? (int)$main->antiInjection($inputs['inputs']['highlighter_id'])                 : 0;
+        $url                      = isset($inputs['inputs']['url'])                      ? (string)$main->antiInjection($inputs['inputs']['url'])                         : '';
+        $title                    = isset($inputs['inputs']['title'])                    ? (string)$main->antiInjection($inputs['inputs']['title'])                       : '';
+        $title_menu               = isset($inputs['inputs']['title_menu'])               ? (string)$main->antiInjection($inputs['inputs']['title_menu'])                  : '';
+        $description              = isset($inputs['inputs']['description'])              ? (string)$main->antiInjection($inputs['inputs']['description'])                 : '';
+        $content_resume           = isset($inputs['inputs']['content_resume'])           ? (string)$main->antiInjection($inputs['inputs']['content_resume'])              : '';
         $content_complete         = isset($inputs['inputs']['content_complete'])         ? (string)$main->antiInjection($inputs['inputs']['content_complete'], 'S') : '';
         $date_register            = isset($inputs['inputs']['date_register'])            ? (string)$main->antiInjection($inputs['inputs']['date_register'])               : date("y-m-d h:m:s");
         $date_update              = isset($inputs['inputs']['date_update'])              ? (string)$main->antiInjection($inputs['inputs']['date_update'])                 : date("y-m-d h:m:s");
@@ -44,35 +44,39 @@ try {
         /** Validação de campos obrigatórios **/
         /** Verifico se o campo content_sub_id foi preenchido **/
         if ($content_sub_id < 0) {
-            array_push($message, 'O campo "$content_sub_id", deve ser preenchido');
+            array_push($message, 'O campo "ContentSubId", deve ser preenchido corretamente');
         }
         /** Verifico se o campo content_sub_id foi preenchido **/
         if ($content_id <= 0) {
-            array_push($message, 'O campo "$content_id", deve ser preenchido');
+            array_push($message, 'O campo "Conteúdo", deve ser preenchido corretamente');
         }
         /** Verifico se o campo user_id foi preenchido **/
         if ($user_id <= 0) {
-            array_push($message, 'O campo "$user_id", deve ser preenchido');
+            array_push($message, 'O campo "Usuário", deve ser preenchido corretamente');
         }
         /** Verifico se o campo situation_id foi preenchido **/
         if ($situation_id <= 0) {
-            array_push($message, 'O campo "$situation_id", deve ser preenchido');
+            array_push($message, 'O campo "Situação", deve ser preenchido corretamente');
         }
         /** Verifico se o campo menu_position foi preenchido **/
-        if ($menu_position <= 0) {
-            array_push($message, 'O campo "$menu_position", deve ser preenchido');
+        if ($menu_position < 0) {
+            array_push($message, 'O campo "Posição", deve ser preenchido corretamente');
         }
         /** Verifico se o campo highlighter_id foi preenchido **/
         if ($highlighter_id <= 0) {
-            array_push($message, 'O campo "$highlighter_id", deve ser preenchido');
+            array_push($message, 'O campo "Marcador", deve ser preenchido corretamente');
+        }
+        /** Verifico se o campo date_register foi preenchido **/
+        if (empty($title)) {
+            array_push($message, 'O campo "Título", deve ser preenchido corretamente');
         }
         /** Verifico se o campo date_register foi preenchido **/
         if (empty($date_register)) {
-            array_push($message, 'O campo "$date_register", deve ser preenchido');
+            array_push($message, 'O campo "Data de Cadastro", deve ser preenchido corretamente');
         }
         /** Verifico se o campo date_update foi preenchido **/
         if (empty($date_update)) {
-            array_push($message, 'O campo "$date_update", deve ser preenchido');
+            array_push($message, 'O campo "Data de Atualização", deve ser preenchido corretamente');
         }
 
         /** Verifico se existem erros **/
@@ -82,7 +86,7 @@ try {
             $result = array(
 
                 "cod" => 0,
-                "message" => $message
+                "result" => $message
 
             );
         } else {
@@ -94,7 +98,7 @@ try {
 
                 "cod" => 1,
                 "content_sub_id" => ($content_sub_id > 0 ? $content_sub_id : $contentSub->getLast()->content_sub_id),
-                "message" => "Informações atualizadas com sucesso!"
+                "result" => "Informações atualizadas com sucesso!"
 
             );
 

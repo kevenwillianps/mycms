@@ -4,7 +4,7 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
+    background: #f4f8f9;
 }
 
 p {
@@ -67,20 +67,6 @@ a:focus {
     color: #fff;
     background-color: #252e40;
     border-color: #252e40;
-}
-.progress-bar {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -ms-flex-pack: center;
-    justify-content: center;
-    overflow: hidden;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #4E91E8;
-    transition: width .6s ease;
 }
 
 .border-dashed-default{

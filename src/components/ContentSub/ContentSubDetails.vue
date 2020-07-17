@@ -6,77 +6,59 @@
 
         <div class="col-md-12">
 
+            <h4>
+
+                <i class="fas fa-brain mr-1"></i>
+
+                <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+
+                    Conteúdo/
+
+                </router-link>
+
+                <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id}}">
+
+                    Sub-Conteúdo/
+
+                </router-link>
+
+                Auxiliar/
+
+                <span class="ml-1 badge badge-primary">Listagem</span>
+
+            </h4>
+
+        </div>
+
+        <div class="col-md-12">
+
             <div class="row">
-
-                <div class="col-md-12">
-
-                    <h4>
-
-                        <i class="fas fa-brain mr-1"></i>
-
-                        <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
-
-                            Conteúdo/
-
-                        </router-link>
-
-                        <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id}}">
-
-                            Sub-Conteúdo/
-
-                        </router-link>
-
-                        Auxiliar/
-
-                        <span class="ml-1 badge badge-primary">Listagem</span>
-
-                    </h4>
-
-                </div>
 
                 <div class="col-md-6">
 
-                    <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
-
-                        <div class="card shadow-sm">
-
-                            <div class="card-body">
-
-                                <Progress percent="100"></Progress>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="card shadow-sm animate__animated animate__fadeIn" v-else>
+                    <div class="card shadow-sm animate__animated animate__fadeIn">
 
                         <div class="card-body">
 
-                            <h4 class="card-title mb-1">
+                            <h4 class="card-title">
 
-                                {{ query.result_content.title }}
-
-                            </h4>
-
-                            <h6 class="card-subtitle text-muted mb-2">
-
-                                Conteúdo Principal
-
-                            </h6>
-
-                            <div class="card-text mb-2" v-html="query.result_content.content_complete"></div>
-
-                            <div class="card-text">
-
-                                <span class="text-muted">
+                                <span class="badge badge-primary">
 
                                     <i class="fas fa-hashtag mr-1"></i>{{ query.result_content.content_id }}
 
                                 </span>
 
-                                -
+                                <strong> {{ query.result_content.title }} </strong>
+
+                            </h4>
+
+                            <h6 class="card-subtitle text-muted">
+
+                                Conteúdo
+
+                            </h6>
+
+                            <div class="mt-1">
 
                                 <span class="text-muted">
 
@@ -93,7 +75,6 @@
                                 </span>
 
                                 -
-
                                 <span class="text-muted">
 
                                     {{ query.result_content.user_function }}
@@ -104,15 +85,15 @@
 
                         </div>
 
-                        <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer card-footer-transparent">
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
 
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentSub1" aria-controls="navbarSupportedContentSub1" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_' + query.result_content.content_id" v-bind:aria-controls="'#navbar_content_' + query.result_content.content_id" aria-expanded="false" aria-label="Toggle navigation">
 
                                 <span class="navbar-toggler-icon"></span>
 
                             </button>
 
-                            <div class="collapse navbar-collapse" id="navbarSupportedContentSub1">
+                            <div class="collapse navbar-collapse" v-bind:id="'navbar_content_' + query.result_content.content_id">
 
                                 <ul class="navbar-nav mr-auto">
 
@@ -138,47 +119,29 @@
 
                 <div class="col-md-6">
 
-                    <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
-
-                        <div class="card shadow-sm">
-
-                            <div class="card-body">
-
-                                <Progress percent="100"></Progress>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="card shadow-sm animate__animated animate__fadeIn" v-else>
+                    <div class="card shadow-sm animate__animated animate__fadeIn">
 
                         <div class="card-body">
 
-                            <h4 class="card-title mb-1">
+                            <h4 class="card-title">
 
-                                {{ query.result_content_sub.title }}
-
-                            </h4>
-
-                            <h6 class="card-subtitle text-muted mb-2">
-
-                                Sub-Conteúdo
-
-                            </h6>
-
-                            <div class="card-text mb-2" v-html="query.result_content_sub.content_complete"></div>
-
-                            <div class="card-text">
-
-                                <span class="text-muted">
+                                <span class="badge badge-primary">
 
                                     <i class="fas fa-hashtag mr-1"></i>{{ query.result_content_sub.content_sub_id }}
 
                                 </span>
 
-                                -
+                                <strong> {{ query.result_content_sub.title }} </strong>
+
+                            </h4>
+
+                            <h6 class="card-subtitle text-muted">
+
+                                Sub-Conteúdo
+
+                            </h6>
+
+                            <div class="mt-1">
 
                                 <span class="text-muted">
 
@@ -195,7 +158,6 @@
                                 </span>
 
                                 -
-
                                 <span class="text-muted">
 
                                     {{ query.result_content_sub.user_function }}
@@ -206,21 +168,21 @@
 
                         </div>
 
-                        <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
 
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentSub2" aria-controls="navbarSupportedContentSub2" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_sub_' + query.result_content.content_id" v-bind:aria-controls="'#navbar_content_sub' + query.result_content.content_id" aria-expanded="false" aria-label="Toggle navigation">
 
                                 <span class="navbar-toggler-icon"></span>
 
                             </button>
 
-                            <div class="collapse navbar-collapse" id="navbarSupportedContentSub2">
+                            <div class="collapse navbar-collapse" v-bind:id="'navbar_content_sub' + query.result_content.content_id">
 
                                 <ul class="navbar-nav mr-auto">
 
                                     <li class="nav-item">
 
-                                        <router-link v-bind:to="{name : 'content-sub-file-datagrid', params : {content_id: query.result_content.content_id, content_sub_id : query.result_content_sub.content_sub_id}}" class="nav-link">
+                                        <router-link v-bind:to="{name : 'content-sub-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id: query.result_content.content_id, content_sub_id : query.result_content_sub.content_sub_id}}"  class="nav-link">
 
                                             <i class="far fa-file mr-1"></i>Arquivos
 
@@ -244,9 +206,9 @@
 
         <div class="col-md-12 mt-3">
 
-            <div class="row">
+            <div class="row mb-2">
 
-                <div class="col-md-6 animate__animated animate__fadeIn">
+                <div class="col-md-10 animate__animated animate__fadeIn">
 
                     <h4>
 
@@ -256,17 +218,13 @@
 
                 </div>
 
-                <div class="col-md-6 text-right animate__animated animate__fadeIn">
+                <div class="col-md-2 text-right">
 
-                    <h4>
+                    <router-link v-bind:to="{name : 'content-sub-auxiliary-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : query.result_content.content_id, content_sub_id : query.result_content_sub.content_sub_id, action : 0}}" class="btn btn-primary">
 
-                        <router-link v-bind:to="{name : 'content-sub-auxiliary-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : query.result_content.content_id, content_sub_id : query.result_content_sub.content_sub_id, action : 0}}" class="btn btn-default">
+                        <i class="fas fa-pencil-alt mr-1"></i>Novo
 
-                            Cadastro
-
-                        </router-link>
-
-                    </h4>
+                    </router-link>
 
                 </div>
 
@@ -330,37 +288,42 @@
 
                             <h4 class="card-title">
 
-                                <strong>
+                                <span class="badge badge-primary">
 
-                                    {{ result.title }}
+                                    <i class="fas fa-hashtag mr-1"></i>{{ result.content_sub_id }}
 
-                                </strong>
+                                </span>
+
+                                <strong> {{ result.title }} </strong>
 
                             </h4>
 
-                            <div>
+                            <h6 class="card-subtitle text-muted">
+
+                                Sub-Conteúdo
+
+                            </h6>
+
+                            <div class="mt-1">
 
                                 <span class="text-muted">
 
-                                    <i class="fas fa-hashtag mr-1"></i>{{result.content_sub_id}}
+                                    <i class="far fa-clock mr-1"></i> {{ result.date_register }}
 
-                                </span> -
+                                </span>
 
-                                <span class="text-muted">
-
-                                    <i class="far fa-clock mr-1"></i>{{result.date_register}}
-
-                                </span> -
+                                -
 
                                 <span class="text-muted">
 
-                                    {{result.user_name}}
+                                    {{ result.user_name }}
 
-                                </span> -
+                                </span>
 
+                                -
                                 <span class="text-muted">
 
-                                    {{result.user_function}}
+                                    {{ result.user_function }}
 
                                 </span>
 
@@ -368,17 +331,27 @@
 
                         </div>
 
-                        <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
 
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#MenuContentSubDatagrid_' + result.content_sub_id" v-bind:aria-controls="'#MenuContentSubDatagrid_' + result.content_sub_id" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_sub_auxiliary_' + result.content_sub_id" v-bind:aria-controls="'#navbar_content_sub_auxiliary_' + result.content_sub_id" aria-expanded="false" aria-label="Toggle navigation">
 
                                 <span class="navbar-toggler-icon"></span>
 
                             </button>
 
-                            <div class="collapse navbar-collapse" v-bind:id="'MenuContentSubDatagrid_' + result.content_sub_id">
+                            <div class="collapse navbar-collapse" v-bind:id="'navbar_content_sub_auxiliary_' + result.content_sub_id">
 
                                 <ul class="navbar-nav mr-auto">
+
+                                    <li class="nav-item">
+
+                                        <router-link v-bind:to="{name : 'content-sub-file-datagrid', params : {content_sub_id : result.content_sub_id}}" class="nav-link">
+
+                                            <i class="far fa-file mr-1"></i>Arquivos
+
+                                        </router-link>
+
+                                    </li>
 
                                     <li class="nav-item">
 
@@ -397,16 +370,6 @@
                                             <i class="fas fa-fire-alt mr-1"></i>Excluir
 
                                         </a>
-
-                                    </li>
-
-                                    <li class="nav-item">
-
-                                        <router-link v-bind:to="{name : 'content-sub-file-datagrid', params : {content_sub_id : result.content_sub_id}}" class="nav-link">
-
-                                            <i class="far fa-file mr-1"></i>Arquivos
-
-                                        </router-link>
 
                                     </li>
 

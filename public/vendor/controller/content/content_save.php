@@ -24,11 +24,11 @@ try {
 
         /** Parâmetros de entrada **/
         $content_id          = isset($inputs['inputs']['content_id'])          ? (int)$main->antiInjection($inputs['inputs']['content_id'])                     : 0;
-        $content_category_id = isset($inputs['inputs']['content_category_id']) ? (int)$main->antiInjection($inputs['inputs']['content_category_id'])            : 1;
+        $content_category_id = isset($inputs['inputs']['content_category_id']) ? (int)$main->antiInjection($inputs['inputs']['content_category_id'])            : 0;
         $user_id             = isset($inputs['inputs']['user_id'])             ? (int)$main->antiInjection($inputs['inputs']['user_id'])                        : $_SESSION['MYSUPPORT-USER-ID'];
-        $situation_id        = isset($inputs['inputs']['situation_id'])        ? (int)$main->antiInjection($inputs['inputs']['situation_id'])                   : 1;
-        $highlighter_id      = isset($inputs['inputs']['highlighter_id'])      ? (int)$main->antiInjection($inputs['inputs']['highlighter_id'])                 : 1;
-        $menu_position       = isset($inputs['inputs']['menu_position'])       ? (int)$main->antiInjection($inputs['inputs']['menu_position'])                  : 1;
+        $situation_id        = isset($inputs['inputs']['situation_id'])        ? (int)$main->antiInjection($inputs['inputs']['situation_id'])                   : 0;
+        $highlighter_id      = isset($inputs['inputs']['highlighter_id'])      ? (int)$main->antiInjection($inputs['inputs']['highlighter_id'])                 : 0;
+        $menu_position       = isset($inputs['inputs']['menu_position'])       ? (int)$main->antiInjection($inputs['inputs']['menu_position'])                  : 0;
         $url                 = isset($inputs['inputs']['url'])                 ? (string)$main->antiInjection($inputs['inputs']['url'])                         : '';
         $title               = isset($inputs['inputs']['title'])               ? (string)$main->antiInjection($inputs['inputs']['title'])                       : '';
         $title_menu          = isset($inputs['inputs']['title_menu'])          ? (string)$main->antiInjection($inputs['inputs']['title_menu'])                  : '0';
@@ -46,35 +46,39 @@ try {
         /** Validação de campos obrigatórios **/
         /** Verifico se o campo content_id foi preenchido **/
         if ($content_id < 0) {
-            array_push($message, '$content_id - O seguinte campo deve ser preenchido/selecionado');
+            array_push($message, 'O campo "ContentId", deve ser preenchido corretamente');
         }
         /** Verifico se o campo content_category_id foi preenchido **/
         if ($content_category_id <= 0) {
-            array_push($message, '$content_category_id - O seguinte campo deve ser preenchido/selecionado');
+            array_push($message, 'O campo "Tipo do Conteúdo", deve ser preenchido corretamente');
         }
         /** Verifico se o campo user_id foi preenchido **/
         if ($user_id <= 0) {
-            array_push($message, '$user_id - O seguinte campo deve ser preenchido/selecionado');
+            array_push($message, 'O campo "Usuário", deve ser preenchido corretamente');
         }
         /** Verifico se o campo situation_id foi preenchido **/
         if ($situation_id <= 0) {
-            array_push($message, '$situation_id - O seguinte campo deve ser preenchido/selecionado');
+            array_push($message, 'O campo "Situação", deve ser preenchido corretamente');
         }
         /** Verifico se o campo highlighter_id foi preenchido **/
         if ($highlighter_id <= 0) {
-            array_push($message, '$highlighter_id - O seguinte campo deve ser preenchido/selecionado');
+            array_push($message, 'O campo "Marcador", deve ser preenchido corretamente');
         }
         /** Verifico se o campo menu_position foi preenchido **/
-        if ($menu_position <= 0) {
-            array_push($message, '$menu_position - O seguinte campo deve ser preenchido/selecionado');
+        if ($menu_position < 0) {
+            array_push($message, 'O campo "Posição", deve ser preenchido corretamente');
+        }
+        /** Verifico se o campo date_register foi preenchido **/
+        if (empty($title)) {
+            array_push($message, 'O campo "Título", deve ser preenchido corretamente');
         }
         /** Verifico se o campo date_register foi preenchido **/
         if (empty($date_register)) {
-            array_push($message, '$date_register - O seguinte campo deve ser preenchido/selecionado');
+            array_push($message, 'O campo "Data de Registro", deve ser preenchido corretamente');
         }
         /** Verifico se o campo date_update foi preenchido **/
         if (empty($date_update)) {
-            array_push($message, '$date_update - O seguinte campo deve ser preenchido/selecionado');
+            array_push($message, 'O campo "Data de Publicação", deve ser preenchido corretamente');
         }
 
         if (count($message) > 0) {
@@ -83,9 +87,10 @@ try {
             $result = array(
 
                 "cod" => 0,
-                "message" => $message
+                "result" => $message
 
             );
+
         } else {
 
             $content->save($content_id, $content_category_id, $user_id, $situation_id, $highlighter_id, $menu_position, $url, $title, $title_menu, $description, $content_resume, $content_complete, $start_date, $closing_date, $date_register, $date_update);
@@ -95,7 +100,7 @@ try {
 
                 "cod" => 1,
                 "content_id" => ($content_id > 0 ? $content_id : $content->getLast()->content_id),
-                "message" => "Informações atualizadas com sucesso!"
+                "result" => "Informações atualizadas com sucesso!"
 
             );
 
@@ -107,7 +112,7 @@ try {
         $result = array(
 
             "cod" => 404,
-            "message" => "Usuário não autenticado"
+            "result" => "Usuário não autenticado"
 
         );
 
@@ -125,7 +130,7 @@ try {
     $result = array(
 
         "cod" => 0,
-        "message" => $e->getMessage()
+        "result" => $e->getMessage()
 
     );
 

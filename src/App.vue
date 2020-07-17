@@ -1,189 +1,189 @@
 <template>
 
-  <div id="app">
+    <div id="app">
 
-      <div class="container mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+        <div class="container mt-3 animate animate__fadeIn" v-if="form.progress_bar">
 
-          <div class="card shadow-sm">
+            <div class="card shadow-sm">
 
-              <div class="card-body">
+                <div class="card-body">
 
-                  <Progress percent="100"></Progress>
+                    <Progress percent="100"></Progress>
 
-              </div>
+                </div>
 
-          </div>
+            </div>
 
-      </div>
+        </div>
 
-      <div v-else-if="session.user_name">
+        <div v-else-if="session.user_name">
 
-          <div class="wrapper">
+            <div class="wrapper">
 
-              <nav id="sidebar" class="shadow-sm">
+                <nav id="sidebar" class="shadow-sm">
 
-                  <div class="sidebar-header text-center">
+                    <div class="sidebar-header text-center">
 
-                      <h3 class="mb-0">
+                        <h3 class="mb-0">
 
-                          MyCMS
+                            <i class="fas fa-meteor" style="font-size: 1.4rem"></i>
 
-                      </h3>
+                        </h3>
 
-                  </div>
+                    </div>
 
-                  <ul class="list-unstyled components">
+                    <ul class="list-unstyled components text-center">
 
-                      <li>
+                        <li>
 
-                          <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                            <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                              <i class="far fa-folder-open mr-1" title="Conteúdo"></i> Conteúdo
+                                <i class="far fa-folder-open shadow-sm"></i>
 
-                          </router-link>
+                            </router-link>
 
-                      </li>
+                        </li>
 
-                      <li>
+                        <li>
 
-                          <router-link v-bind:to="{name : 'users-details', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                            <router-link v-bind:to="{name : 'users-details', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                              <i class="fas fa-user-circle mr-1"></i> Perfil
+                                <i class="fas fa-user-circle shadow-sm"></i>
 
-                          </router-link>
+                            </router-link>
 
-                      </li>
+                        </li>
 
-                      <li class="active" v-if="session.user_function_id == 1">
+                        <li>
 
-                          <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <router-link to="/">
 
-                              <i class="fas fa-cog mr-1"></i>Configurações
+                                <i class="fas fa-info-circle shadow-sm"></i>
 
-                          </a>
+                            </router-link>
 
-                          <ul class="collapse list-unstyled" id="homeSubmenu">
+                        </li>
 
-                              <li>
+                        <li class="active" v-if="session.user_function_id == 1">
 
-                                  <router-link v-bind:to="{name : 'general-form', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 
-                                      <i class="fas fa-cogs mr-1"></i> Geral
+                                <i class="fas fa-cog shadow-sm"></i>
 
-                                  </router-link>
+                            </a>
 
-                              </li>
+                            <ul class="collapse list-unstyled" id="homeSubmenu">
 
-                              <li>
+                                <li>
 
-                                  <router-link v-bind:to="{name : 'users-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                                    <router-link v-bind:to="{name : 'general-form', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                                      <i class="fas fa-users mr-1"></i> Usuários
+                                        <i class="fas fa-cogs shadow-sm"></i>
 
-                                  </router-link>
+                                    </router-link>
 
-                              </li>
+                                </li>
 
-                              <li>
+                                <li>
 
-                                  <router-link v-bind:to="{name : 'user-function-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                                    <router-link v-bind:to="{name : 'users-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                                      <i class="fas fa-user-tie mr-1"></i> Funções
+                                        <i class="fas fa-users shadow-sm"></i>
 
-                                  </router-link>
+                                    </router-link>
 
-                              </li>
+                                </li>
 
-                              <li>
+                                <li>
 
-                                  <router-link v-bind:to="{name : 'content-category-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                                    <router-link v-bind:to="{name : 'user-function-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                                      <i class="fas fa-layer-group mr-1"></i> Categoria
+                                        <i class="fas fa-user-tie shadow-sm"></i>
 
-                                  </router-link>
+                                    </router-link>
 
-                              </li>
+                                </li>
 
-                              <li>
+                                <li>
 
-                                  <router-link v-bind:to="{name : 'situation-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                                    <router-link v-bind:to="{name : 'content-category-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                                      <i class="fas fa-exclamation mr-1"></i> Situações
+                                        <i class="fas fa-layer-group shadow-sm"></i>
 
-                                  </router-link>
+                                    </router-link>
 
-                              </li>
+                                </li>
 
-                              <li>
+                                <li>
 
-                                  <router-link v-bind:to="{name : 'highlighter-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                                    <router-link v-bind:to="{name : 'situation-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                                      <i class="fas fa-check mr-1"></i> Marcadores
+                                        <i class="fas fa-exclamation shadow-sm"></i>
 
-                                  </router-link>
+                                    </router-link>
 
-                              </li>
+                                </li>
 
-                              <li>
+                                <li>
 
-                                  <router-link v-bind:to="{name : 'highlighter-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+                                    <router-link v-bind:to="{name : 'highlighter-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                                      <i class="fas fa-check mr-1"></i> Marcadores de Arquivos
+                                        <i class="fas fa-check shadow-sm"></i>
 
-                                  </router-link>
+                                    </router-link>
 
-                              </li>
+                                </li>
 
-                          </ul>
+                                <li>
 
-                      </li>
+                                    <router-link v-bind:to="{name : 'highlighter-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
 
-                      <li>
+                                        <i class="fas fa-check shadow-sm"></i>
 
-                          <router-link to="/">
+                                    </router-link>
 
-                              <i class="fas fa-info-circle mr-1"></i>Informações
+                                </li>
 
-                          </router-link>
+                            </ul>
 
-                      </li>
+                        </li>
 
-                  </ul>
+                    </ul>
 
-                  <ul class="list-unstyled CTAs">
+                    <ul class="list-unstyled CTAs">
 
-                      <li>
+                        <li>
 
-                          <a type="button" class="article" v-on:click="DestroySession()">
+                            <a type="button" class="article" v-on:click="DestroySession()">
 
-                              <i class="fas fa-power-off mr-1"></i>Sair
+                                <i class="fas fa-power-off shadow-sm"></i>
 
-                          </a>
+                            </a>
 
-                      </li>
+                        </li>
 
-                  </ul>
+                    </ul>
 
-              </nav>
+                </nav>
 
-              <!-- Page Content  -->
-              <div id="content">
+                <!-- Page Content  -->
+                <div id="content">
 
-                  <router-view></router-view>
+                    <router-view></router-view>
 
-              </div>
+                </div>
 
-          </div>
+            </div>
 
-      </div>
+        </div>
 
-      <div v-else>
+        <div v-else>
 
-          <Login></Login>
+            <Login></Login>
 
-      </div>
+        </div>
 
-  </div>
+    </div>
 
 </template>
 

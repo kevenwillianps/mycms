@@ -4,9 +4,9 @@
 
         <ModalConfirm title="Atenção!" message="Deseja excluir este registro ?" v-on:ConfirmRequest="Delete"></ModalConfirm>
 
-        <div class="row animate__animated animate__fadeIn">
+        <div class="row animate__animated animate__fadeIn mb-2">
 
-            <div class="col-md-6">
+            <div class="col-md-10">
 
                 <h4>
 
@@ -16,17 +16,13 @@
 
             </div>
 
-            <div class="col-md-6 text-right">
+            <div class="col-md-2 text-right">
 
-                <h4>
+                <router-link v-bind:to="{name : 'content-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : 0}}" class="btn btn-primary">
 
-                    <router-link v-bind:to="{name : 'content-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : 0}}" class="btn btn-default">
+                    <i class="fas fa-pencil-alt mr-1"></i>Novo
 
-                        Cadastro
-
-                    </router-link>
-
-                </h4>
+                </router-link>
 
             </div>
 
@@ -82,7 +78,7 @@
 
         <div class="row" v-else>
 
-            <div class="col-md-3 mb-2 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
+            <div class="col-md-3 mb-3 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
 
                 <div class="card shadow-sm">
 
@@ -90,53 +86,54 @@
 
                         <h4 class="card-title">
 
-                            <strong>
+                            <span class="badge badge-primary">
 
-                                {{ result.title }}
+                                <i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}
 
-                            </strong>
+                            </span>
+
+                            <strong> {{ result.title }} </strong>
 
                         </h4>
 
                         <div class="mt-1">
 
-                            <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
+                            <span class="text-muted">
+
+                                <i class="far fa-clock mr-1"></i> {{ result.date_register }}
+
+                            </span>
+
+                            -
+
+                            <span class="text-muted">
+
+                                {{ result.user_name }}
+
+                            </span>
+
+                            -
+                            <span class="text-muted">
+
+                                {{ result.user_function }}
+
+                            </span>
 
                         </div>
 
                     </div>
 
-                    <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer card-footer-transparent">
+                    <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
 
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_' + result.content_id" v-bind:aria-controls="'#navbar_content_' + result.content_id" aria-expanded="false" aria-label="Toggle navigation">
 
                             <span class="navbar-toggler-icon"></span>
 
                         </button>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="collapse navbar-collapse" v-bind:id="'navbar_content_' + result.content_id">
 
                             <ul class="navbar-nav mr-auto">
-
-                                <li class="nav-item">
-
-                                    <router-link class="nav-link" type="button" v-bind:to="{name : 'content-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id}}">
-
-                                        <i class="fas fa-pencil-alt mr-1"></i>Editar
-
-                                    </router-link>
-
-                                </li>
-
-                                <li class="nav-item">
-
-                                    <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_id = result.content_id">
-
-                                        <i class="fas fa-fire-alt mr-1"></i>Excluir
-
-                                    </a>
-
-                                </li>
 
                                 <li class="nav-item">
 
@@ -158,6 +155,26 @@
 
                                 </li>
 
+                                <li class="nav-item">
+
+                                    <router-link class="nav-link" type="button" v-bind:to="{name : 'content-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id}}">
+
+                                        <i class="fas fa-pencil-alt mr-1"></i>Editar
+
+                                    </router-link>
+
+                                </li>
+
+                                <li class="nav-item">
+
+                                    <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_id = result.content_id">
+
+                                        <i class="fas fa-times mr-1"></i>Excluir
+
+                                    </a>
+
+                                </li>
+
                             </ul>
 
                         </div>
@@ -176,12 +193,14 @@
 
 <script type="text/ecmascript-6">
 
+    /** Importação de componentes **/
     import axios from 'axios';
     import Progress from '../Geral/Progress';
     import ModalConfirm from '../Geral/ModalConfirm';
 
     export default {
 
+        /** Nome do componente atuala **/
         name: "ContentDatagrid",
 
         components: {

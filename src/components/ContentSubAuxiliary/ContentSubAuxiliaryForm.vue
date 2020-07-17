@@ -18,9 +18,9 @@
 
                 <h4>
 
-                    <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id}}" class="btn btn-default">
+                    <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id}}" class="btn btn-primary">
 
-                        Listagem
+                        <i class="fas fa-bars mr-1"></i>Listagem
 
                     </router-link>
 
@@ -44,21 +44,75 @@
 
         </div>
 
-        <div class="card shadow-sm border-dashed animate__animated animate__fadeIn" v-else>
+        <div v-else>
 
-            <div class="card-body">
+            <div class="card card-default shadow-sm animate__animated animate__fadeIn border-dashed mb-2" v-if="query.error.length > 0">
 
-                <div class="row">
+                <div class="card-body">
 
-                    <div class="col-md-12 animate__animated animate__fadeIn">
+                    <div class="media">
 
-                        <div class="row">
+                        <img src="image/svg/007-blocked.svg" width="50px" class="align-self-center mr-3" alt="MyCMS - Keven Willian">
 
-                            <div class="col-md-12">
+                        <div class="media-body">
 
-                                <div class="form-group">
+                            <h4 class="mt-0 mb-2 card-title">
 
-                                    <input type="text" class="form-control" placeholder="URL" v-model="inputs.url">
+                                Ops! Alguns erros foram encontrados...
+
+                            </h4>
+
+                            <h6 class="card-subtitle text-muted">
+
+                                Verifique os itens para poder prosseguir
+
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <ul class="list-unstyled">
+
+                        <li class="media" v-for="(result, index) in query.error" v-bind:key="index">
+
+                            <div class="media-body">
+
+                                <p class="card-text">
+
+                                    {{ result }}
+
+                                </p>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow-sm animate__animated animate__fadeIn border-dashed">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-12 animate__animated animate__fadeIn">
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+
+                                        <input type="text" class="form-control" placeholder="URL" v-model="inputs.url">
+
+                                    </div>
 
                                 </div>
 
@@ -66,55 +120,37 @@
 
                         </div>
 
-                    </div>
+                        <div class="col-md-12 animate__animated animate__fadeIn">
 
-                    <div class="col-md-12 animate__animated animate__fadeIn">
+                            <div class="row">
 
-                        <div class="row">
+                                <div class="col-md-4">
 
-                            <div class="col-md-4">
+                                    <div class="form-group">
 
-                                <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Título" v-model="inputs.title">
 
-                                    <input type="text" class="form-control" placeholder="Título" v-model="inputs.title">
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-4 animate__animated animate__fadeIn">
-
-                                <div class="form-group">
-
-                                    <input type="text" class="form-control" placeholder="Título do Menu" v-model="inputs.title_menu">
+                                    </div>
 
                                 </div>
 
-                            </div>
+                                <div class="col-md-4 animate__animated animate__fadeIn">
 
-                            <div class="col-md-4 animate__animated animate__fadeIn">
+                                    <div class="form-group">
 
-                                <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Título do Menu" v-model="inputs.title_menu">
 
-                                    <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
+                                    </div>
 
                                 </div>
 
-                            </div>
+                                <div class="col-md-4 animate__animated animate__fadeIn">
 
-                        </div>
+                                    <div class="form-group">
 
-                    </div>
+                                        <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
 
-                    <div class="col-md-12 animate__animated animate__fadeIn">
-
-                        <div class="row">
-
-                            <div class="col-md-12">
-
-                                <div class="form-group">
-
-                                    <input type="text" class="form-control" placeholder="Conteúdo Resumido" v-model="inputs.content_resume">
+                                    </div>
 
                                 </div>
 
@@ -122,120 +158,17 @@
 
                         </div>
 
-                    </div>
+                        <div class="col-md-12 animate__animated animate__fadeIn">
 
-                    <div class="col-md-12 animate__animated animate__fadeIn">
+                            <div class="row">
 
-                        <div class="row">
+                                <div class="col-md-12">
 
-                            <div class="col-md-12">
+                                    <div class="form-group">
 
-                                <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Conteúdo Resumido" v-model="inputs.content_resume">
 
-                                    <ckeditor v-bind:editor="editor" v-model="inputs.content_complete" v-bind:config="editorConfig"></ckeditor>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-12 animate__animated animate__fadeIn">
-
-                        <div class="row">
-
-                            <div class="col-md-4">
-
-                                <div class="form-group">
-
-                                    <label for="Position">
-
-                                        Posição
-
-                                    </label>
-                                    <input type="number" class="form-control" placeholder="Posição" v-model="inputs.menu_position" id="Position">
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-4">
-
-                                <div class="form-group">
-
-                                    <label for="situation_id">
-
-                                        Situação
-
-                                    </label>
-
-                                    <select class="custom-select" v-model="inputs.situation_id" id="situation_id">
-
-                                        <option v-bind:value="result.situation_id" v-for="(result, index) in query.result_situations" v-bind:key="index">
-
-                                            {{ result.name }}
-
-                                        </option>
-
-                                    </select>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-4">
-
-                                <div class="form-group">
-
-                                    <label for="highlighter_id">
-
-                                        Marcador
-
-                                    </label>
-
-                                    <select class="custom-select" v-model="inputs.highlighter_id" id="highlighter_id">
-
-                                        <option v-bind:value="result.highlighter_id" v-for="(result, index) in query.result_highlighters" v-bind:key="index">
-
-                                            {{ result.description }}
-
-                                        </option>
-
-                                    </select>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-
-                                    <label for="StarDate">
-
-                                        Data de Inicio do Conteúdo
-
-                                    </label>
-
-                                    <input type="date" class="form-control" v-model="inputs.start_date" id="StarDate">
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-
-                                    <label for="StartClosing">
-
-                                        Data de Encerramento do Conteúdo
-
-                                    </label>
-
-                                    <input type="date" class="form-control" v-model="inputs.closing_date" id="StartClosing">
+                                    </div>
 
                                 </div>
 
@@ -243,15 +176,134 @@
 
                         </div>
 
-                    </div>
+                        <div class="col-md-12 animate__animated animate__fadeIn">
 
-                    <div class="col-md-12 animate__animated animate__fadeIn">
+                            <div class="row">
 
-                        <div class="form-group">
+                                <div class="col-md-12">
 
-                            <div class="border-dashed-default rounded">
+                                    <div class="form-group">
 
-                                <div class="file-drop-area" v-if="!inputs_file.file">
+                                        <ckeditor v-bind:editor="editor" v-model="inputs.content_complete" v-bind:config="editorConfig"></ckeditor>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12 animate__animated animate__fadeIn">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+
+                                        <label for="Position">
+
+                                            Posição
+
+                                        </label>
+                                        <input type="number" class="form-control" placeholder="Posição" v-model="inputs.menu_position" id="Position">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+
+                                        <label for="situation_id">
+
+                                            Situação
+
+                                        </label>
+
+                                        <select class="custom-select" v-model="inputs.situation_id" id="situation_id">
+
+                                            <option v-bind:value="result.situation_id" v-for="(result, index) in query.result_situations" v-bind:key="index">
+
+                                                {{ result.name }}
+
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+
+                                        <label for="highlighter_id">
+
+                                            Marcador
+
+                                        </label>
+
+                                        <select class="custom-select" v-model="inputs.highlighter_id" id="highlighter_id">
+
+                                            <option v-bind:value="result.highlighter_id" v-for="(result, index) in query.result_highlighters" v-bind:key="index">
+
+                                                {{ result.description }}
+
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label for="StarDate">
+
+                                            Data de Inicio do Conteúdo
+
+                                        </label>
+
+                                        <input type="date" class="form-control" v-model="inputs.start_date" id="StarDate">
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label for="StartClosing">
+
+                                            Data de Encerramento do Conteúdo
+
+                                        </label>
+
+                                        <input type="date" class="form-control" v-model="inputs.closing_date" id="StartClosing">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12 animate__animated animate__fadeIn">
+
+                            <div class="form-group">
+
+                                <div class="border-dashed-default rounded">
+
+                                    <div class="file-drop-area" v-if="!inputs_file.file">
 
                                     <span class="fake-btn mr-3">
 
@@ -259,33 +311,35 @@
 
                                     </span>
 
-                                    <span class="file-msg">
+                                        <span class="file-msg">
 
                                         Arraste seus arquivos e solte até aqui para carregalos
 
                                     </span>
 
-                                    <input class="file-input" type="file" multiple v-on:change="onChange">
+                                        <input class="file-input" type="file" multiple v-on:change="onChange">
 
-                                </div>
+                                    </div>
 
-                                <div v-else>
+                                    <div v-else>
 
-                                    <div class="media">
+                                        <div class="media">
 
-                                        <div class="media-body p-3">
+                                            <div class="media-body p-3">
 
-                                            <h3 class="mt-0">
+                                                <h3 class="mt-0">
 
-                                                {{ inputs_file.name }}
+                                                    {{ inputs_file.name }}
 
-                                            </h3>
+                                                </h3>
 
-                                            <button class="btn btn-default" v-on:click="ResetFormFile()">
+                                                <button class="btn btn-primary" v-on:click="ResetFormFile()">
 
-                                                <i class="fas fa-eraser mr-1"></i> Remover Arquivo
+                                                    <i class="fas fa-eraser mr-1"></i> Remover Arquivo
 
-                                            </button>
+                                                </button>
+
+                                            </div>
 
                                         </div>
 
@@ -297,105 +351,99 @@
 
                         </div>
 
-                    </div>
+                        <div class="col-md-12 animate__animated animate__fadeIn" v-if="inputs_file.name.length > 0">
 
-                    <div class="col-md-12 animate__animated animate__fadeIn" v-if="inputs_file.name.length > 0">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <table class="table table-bordered table-borderless border-dashed-table rounded shadow-sm">
 
-                            <table class="table table-bordered table-borderless border-dashed-table rounded shadow-sm">
+                                    <thead>
 
-                                <thead>
+                                    <tr>
 
-                                <tr>
+                                        <th scope="col" class="text-center">#</th>
+                                        <th scope="col">Posição</th>
+                                        <th scope="col">Marcador</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col" class="text-center">Operações</th>
 
-                                    <th scope="col" class="text-center">#</th>
-                                    <th scope="col">Posição</th>
-                                    <th scope="col">Marcador</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col" class="text-center">Operações</th>
+                                    </tr>
 
-                                </tr>
+                                    </thead>
 
-                                </thead>
+                                    <tbody>
 
-                                <tbody>
+                                    <tr v-for="(result, index) in inputs_file.name_auxiliary" v-bind:key="index" class="border-top-dashed-table">
 
-                                <tr v-for="(result, index) in inputs_file.name_auxiliary" v-bind:key="index" class="border-top-dashed-table">
+                                        <th scope="row" class="text-center">
 
-                                    <th scope="row" class="text-center">
+                                            {{ index }}
 
-                                        {{ index }}
+                                        </th>
 
-                                    </th>
+                                        <th>
 
-                                    <th>
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <input type="number" class="form-control" v-model="inputs_file.position[index]"/>
 
-                                            <input type="number" class="form-control" v-model="inputs_file.position[index]"/>
+                                            </div>
 
-                                        </div>
+                                        </th>
 
-                                    </th>
+                                        <th>
 
-                                    <th>
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <select class="custom-select" v-model="inputs_file.highlighter_file_id[index]">
 
-                                            <select class="custom-select" v-model="inputs_file.highlighter_file_id[index]">
+                                                    <option v-bind:value="result.highlighter_file_id" v-for="(result, index_select) in query.result_highlighters_file" v-bind:key="index_select">
 
-                                                <option v-bind:value="result.highlighter_file_id" v-for="(result, index_select) in query.result_highlighters_file" v-bind:key="index_select">
+                                                        {{ result.description }}
 
-                                                    {{ result.description }}
+                                                    </option>
 
-                                                </option>
+                                                </select>
 
-                                            </select>
+                                            </div>
 
-                                        </div>
+                                        </th>
 
-                                    </th>
+                                        <td>
 
-                                    <td>
+                                            {{ result }}
 
-                                        {{ result }}
+                                        </td>
 
-                                    </td>
+                                        <td class="text-center">
 
-                                    <td class="text-center">
+                                            <button class="btn btn-danger" v-on:click="RemoveFile(index)">
 
-                                        <button class="btn btn-danger" v-on:click="RemoveFile(index)">
+                                                <i class="fas fa-fire-alt mr-1"></i>
 
-                                            <i class="fas fa-fire-alt mr-1"></i>
+                                            </button>
 
-                                        </button>
+                                        </td>
 
-                                    </td>
+                                    </tr>
 
-                                </tr>
+                                    </tbody>
 
-                                </tbody>
+                                </table>
 
-                            </table>
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-12 text-right">
 
-                    <div class="col-md-12 text-right">
+                            <button class="btn btn-primary" v-on:click="Save()">
 
-                        <button class="btn btn-default" v-on:click="Save()" v-if="inputs.title">
+                                <i class="fas fa-paper-plane"></i> Salvar
 
-                            <i class="fas fa-paper-plane"></i> Salvar
+                            </button>
 
-                        </button>
-
-                        <button class="btn btn-default disabled" v-else disabled>
-
-                            <i class="fas fa-paper-plane"></i> Salvar
-
-                        </button>
+                        </div>
 
                     </div>
 
@@ -440,6 +488,7 @@
                 query: {
 
                     result: [],
+                    error: [],
                     message: null,
                     result_situations: [],
                     result_highlighters: [],
@@ -704,6 +753,12 @@
 
                         /** Verifico a categoria do meu retorno **/
                         switch (response.data.cod) {
+
+                            case 0:
+
+                                this.query.error = response.data.result;
+                                this.form.progress_bar = false;
+                                break;
 
                             case 1:
 
