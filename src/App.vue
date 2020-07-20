@@ -56,6 +56,16 @@
 
                         <li>
 
+                            <router-link v-bind:to="{name : 'contact-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
+
+                                <i class="far fa-envelope shadow-sm"></i>
+
+                            </router-link>
+
+                        </li>
+
+                        <li>
+
                             <router-link to="/">
 
                                 <i class="fas fa-info-circle shadow-sm"></i>

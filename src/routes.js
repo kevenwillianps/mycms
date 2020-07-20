@@ -37,6 +37,8 @@ import ContentSubAuxiliaryForm from './components/ContentSubAuxiliary/ContentSub
 import SituationDatagrid from './components/Situation/SituationDatagrid';
 import SituationForm from './components/Situation/SituationForm';
 
+import ContactDatagrid from './components/Contacts/ContactDatagrid';
+
 /** Importação dos componentes 'highlighter' **/
 import HighlighterDatagrid from './components/Highlighter/HighlighterDatagrid';
 import HighlighterForm from './components/Highlighter/HighlighterForm';
@@ -222,6 +224,15 @@ const routes = [
         path: '/situation-form/:user_id/:user_function_id/:situation_id',
         component: SituationForm,
         name: 'situation-form',
+
+    },
+
+    {
+
+        /** Listagem de Situações **/
+        path: '/contact-datagrid/:user_id/:user_function_id',
+        component: ContactDatagrid,
+        name: 'contact-datagrid',
 
     },
 
