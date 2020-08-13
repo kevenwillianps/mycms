@@ -32,6 +32,16 @@
 
         </div>
 
+        <div class="card shadow-sm mt-3">
+
+            <div class="card-body">
+
+                <Bar v-bind:labels="chart_content.labels" v-bind:label="chart_content.label" v-bind:background-color="chart_content.background_color" v-bind:data="chart_content.data"/>
+
+            </div>
+
+        </div>
+
     </div>
 
 </template>
@@ -39,10 +49,17 @@
 <script type="text/ecmascript-6">
 
     import axios from 'axios';
+    import Bar from "./Charts/Bar";
 
     export default {
 
         name: "Home",
+
+        components : {
+
+            Bar,
+
+        },
 
         data(){
 
@@ -50,17 +67,74 @@
 
                 session: [],
 
+                query : {
+
+                    result : {
+
+                        content : []
+
+                    }
+
+                },
+
+                chart_content : {
+
+                    label : 'Conteúdo Principal',
+                    labels : [],
+                    background_color : '#f87979',
+                    data : [],
+
+                }
+
             }
 
         },
 
         methods : {
 
+            /** Listagem de Classes **/
+            ListContent() {
+
+                /** Envio uma requisição ao meu backend **/
+                axios.post('router.php?TABLE=CONTENT&ACTION=CONTENT_DATAGRID')
+
+                    /** Caso tenha sucesso **/
+                    .then(response => {
+
+                        switch (response.data.cod){
+
+                            case 404:
+
+                                /** Recarrego a página **/
+                                location.reload();
+                                break;
+
+                            default:
+
+                                /** Monto os dados do gráfico */
+                                for (let i = 0; i < response.data.result.length; i++){
+
+                                    this.chart_content.labels.push(response.data.result[i].title);
+                                    this.chart_content.data.push(response.data.result[i].content_visited);
+
+                                }
+                                break;
+
+                        }
+
+                    })
+
+                    /** Caso tenha falha **/
+                    .catch(response => {
+
+                        console.log('Erro:' + response);
+
+                    });
+
+            },
+
             /** Crio a sessão do usuário **/
             GetSession() {
-
-                /** Habilito minha barra de progresso **/
-                this.form.progress_bar = true;
 
                 axios.post('router.php?TABLE=USER&ACTION=USER_GET_SESSION')
 
@@ -68,12 +142,6 @@
 
                         /** Desabilito minha barra de progresso **/
                         this.session = response.data.result;
-                        window.setTimeout(() => {
-
-                            /** Habilito minha barra de progresso **/
-                            this.form.progress_bar = false;
-
-                        }, 1000);
 
                     })
 
@@ -89,6 +157,7 @@
 
         mounted(){
 
+            this.ListContent();
             this.GetSession();
 
         }

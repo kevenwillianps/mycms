@@ -9,7 +9,7 @@
         </h4>
 
         <!-- Exibe a barra de progresso quando for verdadeiro-->
-        <div class="animate animate__fadeIn" v-if="form.progress_bar">
+        <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
 
             <div class="card shadow-sm">
 
@@ -23,7 +23,7 @@
 
         </div>
 
-        <div class="card shadow-sm animate animate__fadeIn" v-else>
+        <div class="card shadow-sm animate__animated animate__fadeIn" v-else>
 
             <div class="card-body">
 
@@ -33,7 +33,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Título" v-model="inputs.title">
+                            <label for="title">
+
+                                Título
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Título" id="title" v-model="inputs.title">
 
                         </div>
 
@@ -43,7 +49,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
+                            <label for="description">
+
+                                Descrição
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Descrição" id="description" v-model="inputs.description">
 
                         </div>
 
@@ -53,7 +65,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Copyright" v-model="inputs.copyright">
+                            <label for="copyright">
+
+                                Copyright
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Copyright" id="copyright" v-model="inputs.copyright">
 
                         </div>
 
@@ -63,7 +81,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="CNPJ" v-model="inputs.cnpj">
+                            <label for="cnpj">
+
+                                CNPJ
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="CNPJ" id="cnpj" v-model="inputs.cnpj">
 
                         </div>
 
@@ -73,7 +97,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="URL" v-model="inputs.url">
+                            <label for="url">
+
+                                URL
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="URL" id="url" v-model="inputs.url">
 
                         </div>
 
@@ -83,7 +113,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Palavra Chave" v-model="inputs.keywords">
+                            <label for="keywords">
+
+                                Palavra Chave
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Palavra Chave" id="keywords" v-model="inputs.keywords">
 
                         </div>
 
@@ -93,7 +129,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Autor" v-model="inputs.author">
+                            <label for="author">
+
+                                Autor
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Autor" id="author" v-model="inputs.author">
 
                         </div>
 
@@ -103,7 +145,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Email" v-model="inputs.email">
+                            <label for="email">
+
+                                Email
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Email" id="email" v-model="inputs.email">
 
                         </div>
 
@@ -113,7 +161,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="smtp" v-model="inputs.smtp">
+                            <label for="smtp">
+
+                                smtp
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="smtp" id="smtp" v-model="inputs.smtp">
 
                         </div>
 
@@ -123,7 +177,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="port" v-model="inputs.port">
+                            <label for="port">
+
+                                port
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="port" id="port" v-model="inputs.port">
 
                         </div>
 
@@ -133,7 +193,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Senha" v-model="inputs.password">
+                            <label for="password">
+
+                                Senha
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Senha" id="password" v-model="inputs.password">
 
                         </div>
 
@@ -143,7 +209,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Dominio" v-model="inputs.domain">
+                            <label for="domain">
+
+                                Dominio
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Dominio" id="domain" v-model="inputs.domain">
 
                         </div>
 
@@ -153,7 +225,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="charset" v-model="inputs.charsert">
+                            <label for="charsert">
+
+                                charset
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="charset" id="charsert" v-model="inputs.charsert">
 
                         </div>
 
@@ -163,7 +241,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Usuário" v-model="inputs.username">
+                            <label for="username">
+
+                                Usuário
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Usuário" id="username" v-model="inputs.username">
 
                         </div>
 
@@ -173,7 +257,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Sessão" v-model="inputs.session">
+                            <label for="session">
+
+                                Sessão
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Sessão" id="session" v-model="inputs.session">
 
                         </div>
 
@@ -183,7 +273,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Número de Registros" v-model="inputs.number_register">
+                            <label for="number_register">
+
+                                Número de Registros
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Número de Registros" id="number_register" v-model="inputs.number_register">
 
                         </div>
 
@@ -193,7 +289,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Endereço" v-model="inputs.address">
+                            <label for="address">
+
+                                Endereço
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Endereço" id="address" v-model="inputs.address">
 
                         </div>
 
@@ -203,7 +305,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Telefone" v-model="inputs.telefone">
+                            <label for="telefone">
+
+                                Telefone
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Telefone" id="telefone" v-model="inputs.telefone">
 
                         </div>
 
@@ -213,7 +321,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Celular" v-model="inputs.celular">
+                            <label for="celular">
+
+                                Celular
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Celular" id="celular" v-model="inputs.celular">
 
                         </div>
 
@@ -223,7 +337,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Facebook" v-model="inputs.facebook">
+                            <label for="facebook">
+
+                                Facebook
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Facebook" id="facebook" v-model="inputs.facebook">
 
                         </div>
 
@@ -233,7 +353,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Instagram" v-model="inputs.instagram">
+                            <label for="instagram">
+
+                                Instagram
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Instagram" id="instagram" v-model="inputs.instagram">
 
                         </div>
 
@@ -243,7 +369,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Pinterest" v-model="inputs.pinterest">
+                            <label for="pinterest">
+
+                                Pinterest
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Pinterest" id="pinterest" v-model="inputs.pinterest">
 
                         </div>
 
@@ -253,7 +385,13 @@
 
                         <div class="form-group">
 
-                            <input type="text" class="form-control" placeholder="Twitter" v-model="inputs.twitter">
+                            <label for="twitter">
+
+                                Twitter
+
+                            </label>
+
+                            <input type="text" class="form-control" placeholder="Twitter" id="twitter" v-model="inputs.twitter">
 
                         </div>
 

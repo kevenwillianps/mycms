@@ -102,6 +102,7 @@ class Content
                       c.content_complete,
                       c.description,
                       c.date_register,
+                      c.visited as content_visited,
                       us.user_id as user_id,
                       us.name as user_name,
                       uf.name as user_function,
