@@ -36,7 +36,7 @@
 
             <div class="card-body">
 
-                <Bar v-bind:labels="chart_content.labels" v-bind:label="chart_content.label" v-bind:background-color="chart_content.background_color" v-bind:data="chart_content.data"/>
+                <Bar v-bind:label-p="chart_content.label" v-bind:labels-p="chart_content.labels" v-bind:background-color-p="chart_content.background_color" v-bind:data-p="chart_content.data"/>
 
             </div>
 
@@ -79,9 +79,9 @@
 
                 chart_content : {
 
-                    label : 'Conteúdo Principal',
+                    label : null,
                     labels : [],
-                    background_color : '#f87979',
+                    background_color : null,
                     data : [],
 
                 }
@@ -93,15 +93,16 @@
         methods : {
 
             /** Listagem de Classes **/
-            ListContent() {
+            async ListContent() {
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=CONTENT&ACTION=CONTENT_DATAGRID')
+                await axios.post('router.php?TABLE=CONTENT&ACTION=CONTENT_DATAGRID')
 
                     /** Caso tenha sucesso **/
                     .then(response => {
 
-                        switch (response.data.cod){
+                        switch (response.data.cod)
+                        {
 
                             case 404:
 
@@ -111,11 +112,13 @@
 
                             default:
 
-                                /** Monto os dados do gráfico */
+                                this.chart_content.label = 'Conteúdo Principal';
+                                this.chart_content.background_color = '#f87979';
+
                                 for (let i = 0; i < response.data.result.length; i++){
 
-                                    this.chart_content.labels.push(response.data.result[i].title);
-                                    this.chart_content.data.push(response.data.result[i].content_visited);
+                                    this.chart_content.labels[i] = response.data.result[i].title;
+                                    this.chart_content.data[i] = parseInt(response.data.result[i].content_visited);
 
                                 }
                                 break;
