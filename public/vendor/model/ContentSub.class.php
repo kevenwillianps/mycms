@@ -87,6 +87,42 @@ class ContentSub
         return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /** Lista todos os registros **/
+    public function chart()
+    {
+
+        /** Consulta SQL **/
+        $this->sql = "select
+                      cs.content_id,
+                      cs.content_sub_id,
+                      cs.title,
+                      cs.content_resume,
+                      cs.content_complete,
+                      cs.description,
+                      cs.date_register,
+                      cs.visited as content_sub_visited,
+                      us.user_id as user_id,
+                      us.name as user_name,
+                      uf.name as user_function,
+                      (select cf.name from content_sub_file cf where cf.content_sub_id = cs.content_sub_id order by content_sub_file_id desc limit 1) as file_name,
+                      (select cf.path from content_sub_file cf where cf.content_sub_id = cs.content_sub_id order by content_sub_file_id desc limit 1) as file_path,
+                      (select cf.file_type from content_sub_file cf where cf.content_sub_id = cs.content_sub_id order by content_sub_file_id desc limit 1) as file_type
+                    from content_sub cs
+                      join user us on us.user_id = cs.user_id
+                      join user_function uf on us.user_function_id = uf.user_function_id
+                    where cs.content_sub_auxiliary_id is null
+                    order by cs.content_sub_id desc";
+
+        /** Preparo o Sql **/
+        $this->stmt = $this->connection->connect()->prepare($this->sql);
+
+        /** Executo o Sql **/
+        $this->stmt->execute();
+
+        /** Retorno um objeto **/
+        return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     /** Insere/autualiza um registro no banco de dados **/
     public function save($content_sub_id, $content_id, $user_id, $situation_id, $highlighter_id, $menu_position, $url, $title, $title_menu, $description, $content_resume, $content_complete, $date_register, $date_update)
     {

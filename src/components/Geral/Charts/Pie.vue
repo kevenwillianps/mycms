@@ -1,10 +1,10 @@
 <script type="text/ecmascript-6">
 
-    import { Bar } from "vue-chartjs";
+    import { Pie } from "vue-chartjs";
 
     export default {
 
-        extends : Bar,
+        extends : Pie,
 
         props : {
 
@@ -49,9 +49,10 @@
                     datasets: [
 
                         {
-                            label: this.labelP,
+
                             backgroundColor: this.backgroundColor,
                             data : this.dataP
+
                         }
 
                     ]

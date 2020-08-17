@@ -52,7 +52,7 @@
 
                    <div class="card-body">
 
-                       <i class="fas fa-rocket" style="font-size: 2rem"></i>
+                       <img src="image/logo.png" width="60" class="d-inline-block align-top" alt="MyCMS - Souza Consultoria Tecnológica">
 
                        <h5 class="card-title mt-2">
 

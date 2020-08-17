@@ -26,7 +26,7 @@
 
                         <h3 class="mb-0">
 
-                            <i class="fas fa-meteor" style="font-size: 1.4rem"></i>
+                            <img src="image/logo.png" style="width: 2.4rem" class="d-inline-block align-top" alt="MyCMS - Souza Consultoria Tecnológica">
 
                         </h3>
 
