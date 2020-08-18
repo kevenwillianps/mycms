@@ -2,410 +2,441 @@
 
     <div>
 
-        <h4>
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <i class="fas fa-cogs"></i> Configuração
+            <div class="navbar-brand">
 
-        </h4>
+                <i class="far fa-folder-open mr-1"></i>Configurações/<span class="ml-1 badge badge-primary">Formulário</span>
 
-        <!-- Exibe a barra de progresso quando for verdadeiro-->
-        <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
+            </div>
 
-            <div class="card shadow-sm">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-                <div class="card-body">
+                <span class="navbar-toggler-icon"></span>
 
-                    <Progress percent="100"></Progress>
+            </button>
+
+            <div class="collapse navbar-collapse" id="method_navbar_header">
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+
+                        <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="nav-link">
+
+                            <i class="fas fa-bars mr-1"></i>Listagem
+
+                        </router-link>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="col-md-12 mt-3">
+
+            <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            <div class="card shadow-sm animate__animated animate__fadeIn" v-else>
 
-        <div class="card shadow-sm animate__animated animate__fadeIn" v-else>
+                <div class="card-body">
 
-            <div class="card-body">
+                    <div class="row">
 
-                <div class="row">
+                        <div class="col-md-3">
 
-                    <div class="col-md-3">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="title">
 
-                            <label for="title">
+                                    Título
 
-                                Título
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Título" id="title" v-model="inputs.title">
 
-                            <input type="text" class="form-control" placeholder="Título" id="title" v-model="inputs.title">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-3">
-
-                        <div class="form-group">
-
-                            <label for="description">
-
-                                Descrição
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Descrição" id="description" v-model="inputs.description">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-3">
 
-                    <div class="col-md-3">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="description">
 
-                            <label for="copyright">
+                                    Descrição
 
-                                Copyright
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Descrição" id="description" v-model="inputs.description">
 
-                            <input type="text" class="form-control" placeholder="Copyright" id="copyright" v-model="inputs.copyright">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-3">
-
-                        <div class="form-group">
-
-                            <label for="cnpj">
-
-                                CNPJ
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="CNPJ" id="cnpj" v-model="inputs.cnpj">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-3">
 
-                    <div class="col-md-12">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="copyright">
 
-                            <label for="url">
+                                    Copyright
 
-                                URL
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Copyright" id="copyright" v-model="inputs.copyright">
 
-                            <input type="text" class="form-control" placeholder="URL" id="url" v-model="inputs.url">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="form-group">
-
-                            <label for="keywords">
-
-                                Palavra Chave
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Palavra Chave" id="keywords" v-model="inputs.keywords">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-3">
 
-                    <div class="col-md-6">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="cnpj">
 
-                            <label for="author">
+                                    CNPJ
 
-                                Autor
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="CNPJ" id="cnpj" v-model="inputs.cnpj">
 
-                            <input type="text" class="form-control" placeholder="Autor" id="author" v-model="inputs.author">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-
-                            <label for="email">
-
-                                Email
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Email" id="email" v-model="inputs.email">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-12">
 
-                    <div class="col-md-4">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="url">
 
-                            <label for="smtp">
+                                    URL
 
-                                smtp
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="URL" id="url" v-model="inputs.url">
 
-                            <input type="text" class="form-control" placeholder="smtp" id="smtp" v-model="inputs.smtp">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-
-                            <label for="port">
-
-                                port
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="port" id="port" v-model="inputs.port">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-6">
 
-                    <div class="col-md-4">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="keywords">
 
-                            <label for="password">
+                                    Palavra Chave
 
-                                Senha
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Palavra Chave" id="keywords" v-model="inputs.keywords">
 
-                            <input type="text" class="form-control" placeholder="Senha" id="password" v-model="inputs.password">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-
-                            <label for="domain">
-
-                                Dominio
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Dominio" id="domain" v-model="inputs.domain">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-6">
 
-                    <div class="col-md-4">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="author">
 
-                            <label for="charsert">
+                                    Autor
 
-                                charset
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Autor" id="author" v-model="inputs.author">
 
-                            <input type="text" class="form-control" placeholder="charset" id="charsert" v-model="inputs.charsert">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="form-group">
-
-                            <label for="username">
-
-                                Usuário
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Usuário" id="username" v-model="inputs.username">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-4">
 
-                    <div class="col-md-2">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="email">
 
-                            <label for="session">
+                                    Email
 
-                                Sessão
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Email" id="email" v-model="inputs.email">
 
-                            <input type="text" class="form-control" placeholder="Sessão" id="session" v-model="inputs.session">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-
-                            <label for="number_register">
-
-                                Número de Registros
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Número de Registros" id="number_register" v-model="inputs.number_register">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-4">
 
-                    <div class="col-md-12">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="smtp">
 
-                            <label for="address">
+                                    smtp
 
-                                Endereço
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="smtp" id="smtp" v-model="inputs.smtp">
 
-                            <input type="text" class="form-control" placeholder="Endereço" id="address" v-model="inputs.address">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="form-group">
-
-                            <label for="telefone">
-
-                                Telefone
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Telefone" id="telefone" v-model="inputs.telefone">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-4">
 
-                    <div class="col-md-6">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="port">
 
-                            <label for="celular">
+                                    port
 
-                                Celular
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="port" id="port" v-model="inputs.port">
 
-                            <input type="text" class="form-control" placeholder="Celular" id="celular" v-model="inputs.celular">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-3">
-
-                        <div class="form-group">
-
-                            <label for="facebook">
-
-                                Facebook
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Facebook" id="facebook" v-model="inputs.facebook">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-4">
 
-                    <div class="col-md-3">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="password">
 
-                            <label for="instagram">
+                                    Senha
 
-                                Instagram
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Senha" id="password" v-model="inputs.password">
 
-                            <input type="text" class="form-control" placeholder="Instagram" id="instagram" v-model="inputs.instagram">
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-3">
-
-                        <div class="form-group">
-
-                            <label for="pinterest">
-
-                                Pinterest
-
-                            </label>
-
-                            <input type="text" class="form-control" placeholder="Pinterest" id="pinterest" v-model="inputs.pinterest">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-4">
 
-                    <div class="col-md-3">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="domain">
 
-                            <label for="twitter">
+                                    Dominio
 
-                                Twitter
+                                </label>
 
-                            </label>
+                                <input type="text" class="form-control" placeholder="Dominio" id="domain" v-model="inputs.domain">
 
-                            <input type="text" class="form-control" placeholder="Twitter" id="twitter" v-model="inputs.twitter">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-md-4">
 
-                    <div class="col-md-12 text-right">
+                            <div class="form-group">
 
-                        <div class="form-group">
+                                <label for="charsert">
 
-                            <button class="btn btn-default" v-on:click="Save()">
+                                    charset
 
-                                <i class="fas fa-paper-plane mr-1"></i>Salvar
+                                </label>
 
-                            </button>
+                                <input type="text" class="form-control" placeholder="charset" id="charsert" v-model="inputs.charsert">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label for="username">
+
+                                    Usuário
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Usuário" id="username" v-model="inputs.username">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+
+                            <div class="form-group">
+
+                                <label for="session">
+
+                                    Sessão
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Sessão" id="session" v-model="inputs.session">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+
+                                <label for="number_register">
+
+                                    Número de Registros
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Número de Registros" id="number_register" v-model="inputs.number_register">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+
+                                <label for="address">
+
+                                    Endereço
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Endereço" id="address" v-model="inputs.address">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label for="telefone">
+
+                                    Telefone
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Telefone" id="telefone" v-model="inputs.telefone">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <label for="celular">
+
+                                    Celular
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Celular" id="celular" v-model="inputs.celular">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+
+                                <label for="facebook">
+
+                                    Facebook
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Facebook" id="facebook" v-model="inputs.facebook">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+
+                                <label for="instagram">
+
+                                    Instagram
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Instagram" id="instagram" v-model="inputs.instagram">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+
+                                <label for="pinterest">
+
+                                    Pinterest
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Pinterest" id="pinterest" v-model="inputs.pinterest">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+
+                                <label for="twitter">
+
+                                    Twitter
+
+                                </label>
+
+                                <input type="text" class="form-control" placeholder="Twitter" id="twitter" v-model="inputs.twitter">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12 text-right">
+
+                            <div class="form-group">
+
+                                <button class="btn btn-primary" v-on:click="Save()">
+
+                                    <i class="fas fa-paper-plane mr-1"></i>Salvar
+
+                                </button>
+
+                            </div>
 
                         </div>
 

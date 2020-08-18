@@ -2,6 +2,50 @@
 
     <div>
 
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
+
+            <div class="navbar-brand">
+
+                <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/Sub Conteúdo/Conteúdo Auxiliar/<span class="ml-1 badge badge-primary">Listagem</span>
+
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="method_navbar_header">
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+
+                        <a type="button" v-on:click="List()" class="nav-link">
+
+                            <i class="fas fa-sync mr-1"></i>Atualiar
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <router-link v-bind:to="{name : 'content-sub-auxiliary-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id, content_sub_id : 0}}" class="nav-link">
+
+                            <i class="fas fa-pencil-alt mr-1"></i>Novo
+
+                        </router-link>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light animate__animated animate__fadeIn">
 
             <a class="navbar-brand" href="#">

@@ -16,6 +16,7 @@ import ContentForm from './components/Content/ContentForm';
 
 /** Importação dos componentes 'content' **/
 import ContentFileDatagrid from './components/ContentFile/ContentFileDatagrid';
+import ContentFileForm from './components/ContentFile/ContentFileForm';
 
 /** Importação dos componentes 'General' **/
 import GeneralForm from './components/General/general_form';
@@ -28,6 +29,7 @@ import ContentSubDetailsAuxiliary from './components/ContentSub/ContentSubDetail
 
 /** Importação dos componentes 'content' **/
 import ContentSubFileDatagrid from './components/ContentSubFile/ContentSubFileDatagrid';
+import ContentSubFileForm from './components/ContentSubFile/ContentSubFileForm';
 
 /** Importação dos componentes 'content_sub_auxiliary' **/
 import ContentSubAuxiliaryDatagrid from './components/ContentSubAuxiliary/ContentSubAuxiliaryDatagrid';
@@ -95,6 +97,15 @@ const routes = [
     {
 
         /** Listagem de Conteúdo **/
+        path: '/content-file-form/:user_id/:user_function_id/:content_id',
+        component: ContentFileForm,
+        name: 'content-file-form',
+
+    },
+
+    {
+
+        /** Listagem de Conteúdo **/
         path: '/content-file-datagrid/:user_id/:user_function_id/:content_id',
         component: ContentFileDatagrid,
         name: 'content-file-datagrid',
@@ -125,6 +136,15 @@ const routes = [
         path: '/content-sub-file-datagrid/:user_id/:user_function_id/:content_id/:content_sub_id',
         component: ContentSubFileDatagrid,
         name: 'content-sub-file-datagrid',
+
+    },
+
+    {
+
+        /** Listagem de Conteúdo **/
+        path: '/content-sub-file-form/:user_id/:user_function_id/:content_id/:content_sub_id',
+        component: ContentSubFileForm,
+        name: 'content-sub-file-form',
 
     },
 

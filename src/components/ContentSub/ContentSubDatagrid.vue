@@ -4,202 +4,89 @@
 
         <ModalConfirm title="Atenção!" message="Deseja excluir este registro ?" v-on:ConfirmRequest="Delete"></ModalConfirm>
 
-        <div class="row mb-2">
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <div class="col-md-10 animate__animated animate__fadeIn">
+            <div class="navbar-brand">
 
-                <h4>
-
-                    <i class="fas fa-brain mr-1"></i>
-
-                    <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
-
-                        Conteúdo/
-
-                    </router-link>
-
-                    Sub-Conteúdo/
-
-                    <span class="ml-1 badge badge-primary">
-
-                        Listagem
-
-                    </span>
-
-                </h4>
+                <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/Sub Conteúdo/<span class="ml-1 badge badge-primary">Listagem</span>
 
             </div>
 
-            <div class="col-md-2 text-right">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-                <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="btn btn-primary">
+                <span class="navbar-toggler-icon"></span>
 
-                    <i class="fas fa-bars mr-1"></i>Listagem
+            </button>
 
-                </router-link>
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-            </div>
+                <ul class="navbar-nav ml-auto">
 
-        </div>
+                    <li class="nav-item">
 
-        <div class="row">
+                        <a type="button" v-on:click="List()" class="nav-link">
 
-            <div class="col-md-12">
+                            <i class="fas fa-sync mr-1"></i>Atualiar
 
-                <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
+                        </a>
 
-                    <div class="card shadow-sm">
+                    </li>
 
-                        <div class="card-body">
+                    <li class="nav-item">
 
-                            <Progress percent="100"></Progress>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="card animate__animated animate__fadeIn shadow-sm" v-else>
-
-                    <div class="card-body">
-
-                        <h4 class="card-title">
-
-                            <span class="badge badge-primary">
-
-                                <i class="fas fa-hashtag mr-1"></i>{{ query.result_content.content_id }}
-
-                            </span>
-
-                            <strong> {{ query.result_content.title }} </strong>
-
-                        </h4>
-
-                        <div class="mt-1">
-
-                            <span class="text-muted">
-
-                                <i class="far fa-clock mr-1"></i> {{ query.result_content.date_register }}
-
-                            </span>
-
-                            -
-
-                            <span class="text-muted">
-
-                                {{ query.result_content.user_name }}
-
-                            </span>
-
-                            -
-                            <span class="text-muted">
-
-                                {{ query.result_content.user_function }}
-
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                    <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
-
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_' + query.result_content.content_id" v-bind:aria-controls="'#navbar_content_' + query.result_content.content_id" aria-expanded="false" aria-label="Toggle navigation">
-
-                            <span class="navbar-toggler-icon"></span>
-
-                        </button>
-
-                        <div class="collapse navbar-collapse" v-bind:id="'navbar_content_' + query.result_content.content_id">
-
-                            <ul class="navbar-nav mr-auto">
-
-                                <li class="nav-item">
-
-                                    <router-link v-bind:to="{name : 'content-file-datagrid', params : {content_id : query.result_content.content_id}}" class="nav-link">
-
-                                        <i class="far fa-file mr-1"></i>Arquivos
-
-                                    </router-link>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </nav>
-
-                </div>
-
-            </div>
-
-            <div class="col-md-12 mt-3">
-
-                <div class="row animate__animated animate__fadeIn mb-2">
-
-                    <div class="col-md-10">
-
-                        <h4>
-
-                            <i class="fas fa-link mr-1"></i>Relacionados
-
-                        </h4>
-
-                    </div>
-
-                    <div class="col-md-2 text-right">
-
-                        <router-link v-bind:to="{name : 'content-sub-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id, content_sub_id : 0}}" class="btn btn-primary">
+                        <router-link v-bind:to="{name : 'content-sub-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id, content_sub_id : 0}}" class="nav-link">
 
                             <i class="fas fa-pencil-alt mr-1"></i>Novo
 
                         </router-link>
 
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="col-md-12 mt-3">
+
+            <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
+
                     </div>
 
                 </div>
 
-                <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
+            </div>
 
-                    <div class="card shadow-sm">
+            <div class="animate__animated animate__fadeIn" v-else-if="query.result <= 0">
 
-                        <div class="card-body">
+                <div class="card shadow-sm">
 
-                            <Progress percent="100"></Progress>
+                    <div class="card-body">
 
-                        </div>
+                        <div class="media">
 
-                    </div>
+                            <img src="image/svg/003-error.svg" width="70px" class="mr-3" alt="MyCMS - Keven Willian">
 
-                </div>
+                            <div class="media-body">
 
-                <div class="animate__animated animate__fadeIn" v-else-if="query.result <= 0">
+                                <h3 class="mt-0">
 
-                    <div class="card shadow-sm">
+                                    Oooops!
 
-                        <div class="card-body">
+                                </h3>
 
-                            <div class="media">
+                                <h5 class="text-muted">
 
-                                <img src="image/svg/003-error.svg" width="70px" class="mr-3" alt="MyCMS - Keven Willian">
+                                    Não foram localizado registros
 
-                                <div class="media-body">
-
-                                    <h3 class="mt-0">
-
-                                        Oooops!
-
-                                    </h3>
-
-                                    <h5 class="text-muted">
-
-                                        Não foram localizado registros
-
-                                    </h5>
-
-                                </div>
+                                </h5>
 
                             </div>
 
@@ -209,112 +96,112 @@
 
                 </div>
 
-                <div class="row" v-else>
+            </div>
 
-                    <div class="col-md-3 mb-3 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
+            <div class="row" v-else>
 
-                        <div class="card shadow-sm">
+                <div class="col-md-3 mb-3 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
 
-                            <div class="card-body">
+                    <div class="card shadow-sm">
 
-                                <h4 class="card-title">
+                        <div class="card-body">
 
-                                    <span class="badge badge-primary">
+                            <h4 class="card-title">
 
-                                        <i class="fas fa-hashtag mr-1"></i>{{ result.content_sub_id }}
+                                <span class="badge badge-primary">
 
-                                    </span>
+                                    <i class="fas fa-hashtag mr-1"></i>{{ result.content_sub_id }}
 
-                                    <strong> {{ result.title }} </strong>
+                                </span>
 
-                                </h4>
+                                <strong> {{ result.title }} </strong>
 
-                                <div class="mt-1">
+                            </h4>
 
-                                    <span class="text-muted">
+                            <div class="mt-1">
 
-                                        <i class="far fa-clock mr-1"></i> {{ result.date_register }}
+                                <span class="text-muted">
 
-                                    </span>
+                                    <i class="far fa-clock mr-1"></i> {{ result.date_register }}
 
-                                    -
+                                </span>
 
-                                    <span class="text-muted">
+                                -
 
-                                        {{ result.user_name }}
+                                <span class="text-muted">
 
-                                    </span>
+                                    {{ result.user_name }}
 
-                                    -
-                                    <span class="text-muted">
+                                </span>
 
-                                        {{ result.user_function }}
+                                -
+                                <span class="text-muted">
 
-                                    </span>
+                                    {{ result.user_function }}
 
-                                </div>
+                                </span>
 
                             </div>
 
-                            <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
-
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_sub' + result.content_sub_id" v-bind:aria-controls="'#navbar_content_sub' + result.content_sub_id" aria-expanded="false" aria-label="Toggle navigation">
-
-                                    <span class="navbar-toggler-icon"></span>
-
-                                </button>
-
-                                <div class="collapse navbar-collapse" v-bind:id="'navbar_content_sub' + result.content_sub_id">
-
-                                    <ul class="navbar-nav mr-auto">
-
-                                        <li class="nav-item">
-
-                                            <router-link v-bind:to="{name : 'content-sub-details', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
-
-                                                <i class="far fa-eye mr-1"></i>Ver
-
-                                            </router-link>
-
-                                        </li>
-
-                                        <li class="nav-item">
-
-                                            <router-link v-bind:to="{name : 'content-sub-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id: query.result_content.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
-
-                                                <i class="far fa-file mr-1"></i>Arquivos
-
-                                            </router-link>
-
-                                        </li>
-
-                                        <li class="nav-item">
-
-                                            <router-link class="nav-link" type="button" v-bind:to="{name : 'content-sub-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}">
-
-                                                <i class="fas fa-pencil-alt mr-1"></i>Editar
-
-                                            </router-link>
-
-                                        </li>
-
-                                        <li class="nav-item">
-
-                                            <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_sub_id = result.content_sub_id">
-
-                                                <i class="fas fa-fire-alt mr-1"></i>Excluir
-
-                                            </a>
-
-                                        </li>
-
-                                    </ul>
-
-                                </div>
-
-                            </nav>
-
                         </div>
+
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_sub' + result.content_sub_id" v-bind:aria-controls="'#navbar_content_sub' + result.content_sub_id" aria-expanded="false" aria-label="Toggle navigation">
+
+                                <span class="navbar-toggler-icon"></span>
+
+                            </button>
+
+                            <div class="collapse navbar-collapse" v-bind:id="'navbar_content_sub' + result.content_sub_id">
+
+                                <ul class="navbar-nav mr-auto">
+
+                                    <li class="nav-item">
+
+                                        <router-link v-bind:to="{name : 'content-sub-details', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
+
+                                            <i class="far fa-eye mr-1"></i>Ver
+
+                                        </router-link>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <router-link v-bind:to="{name : 'content-sub-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id: query.result_content.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
+
+                                            <i class="far fa-file mr-1"></i>Arquivos
+
+                                        </router-link>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <router-link class="nav-link" type="button" v-bind:to="{name : 'content-sub-form', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}">
+
+                                            <i class="fas fa-pencil-alt mr-1"></i>Editar
+
+                                        </router-link>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_sub_id = result.content_sub_id">
+
+                                            <i class="fas fa-fire-alt mr-1"></i>Excluir
+
+                                        </a>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </nav>
 
                     </div>
 

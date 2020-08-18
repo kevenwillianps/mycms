@@ -2,57 +2,83 @@
 
     <div>
 
-        <h4>
-
-            <i class="far fa-envelope mr-1"></i>Contatos/
-
-            <span class="ml-1 badge badge-primary">
-
-                Listagem
-
-            </span>
-
-        </h4>
-
         <ModalConfirm title="Atenção!" message="Deseja excluir este registro ?" v-on:ConfirmRequest="Delete"></ModalConfirm>
 
-        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <div class="card shadow-sm">
+            <div class="navbar-brand">
 
-                <div class="card-body">
+                <i class="far fa-folder-open mr-1"></i>Contatos/<span class="ml-1 badge badge-primary">Listagem</span>
 
-                    <Progress percent="100"></Progress>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="method_navbar_header">
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+
+                        <a type="button" v-on:click="List()" class="nav-link">
+
+                            <i class="fas fa-sync mr-1"></i>Atualiar
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="col-md-12 mt-3">
+
+            <div class="animate animate__fadeIn" v-if="form.progress_bar">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            <div class="animate__animated animate__fadeIn" v-else-if="query.result <= 0">
 
-        <div class="animate__animated animate__fadeIn" v-else-if="query.result <= 0">
+                <div class="card shadow-sm">
 
-            <div class="card shadow-sm">
+                    <div class="card-body">
 
-                <div class="card-body">
+                        <div class="media">
 
-                    <div class="media">
+                            <img src="image/svg/003-error.svg" width="70px" class="mr-3" alt="MyCMS - Keven Willian">
 
-                        <img src="image/svg/003-error.svg" width="70px" class="mr-3" alt="MyCMS - Keven Willian">
+                            <div class="media-body">
 
-                        <div class="media-body">
+                                <h3 class="mt-0">
 
-                            <h3 class="mt-0">
+                                    Oooops!
 
-                                Oooops!
+                                </h3>
 
-                            </h3>
+                                <h5 class="text-muted">
 
-                            <h5 class="text-muted">
+                                    Não foram localizado registros
 
-                                Não foram localizado registros
+                                </h5>
 
-                            </h5>
+                            </div>
 
                         </div>
 
@@ -62,17 +88,15 @@
 
             </div>
 
-        </div>
+            <div class="row" v-else>
 
-        <div class="row" v-else>
+                <div class="col-md-3 mb-3 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
 
-            <div class="col-md-3 mb-3 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
+                    <div class="card shadow-sm">
 
-                <div class="card shadow-sm">
+                        <div class="card-body">
 
-                    <div class="card-body">
-
-                        <h4 class="card-title">
+                            <h4 class="card-title">
 
                             <span class="badge badge-primary">
 
@@ -80,11 +104,11 @@
 
                             </span>
 
-                            <strong> {{ result.name }} </strong>
+                                <strong> {{ result.name }} </strong>
 
-                        </h4>
+                            </h4>
 
-                        <h6 class="card-subtitle">
+                            <h6 class="card-subtitle">
 
                             <span class="text-muted">
 
@@ -92,51 +116,53 @@
 
                             </span>
 
-                            -
+                                -
 
-                            <span class="text-muted">
+                                <span class="text-muted">
 
                                 {{ result.date_register }}
 
                             </span>
 
-                        </h6>
+                            </h6>
 
-                        <div class="card-text">
+                            <div class="card-text">
 
-                            {{ result.message }}
+                                {{ result.message }}
+
+                            </div>
 
                         </div>
+
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_contact_' + result.contact_id" v-bind:aria-controls="'#navbar_contact_' + result.contact_id" aria-expanded="false" aria-label="Toggle navigation">
+
+                                <span class="navbar-toggler-icon"></span>
+
+                            </button>
+
+                            <div class="collapse navbar-collapse" v-bind:id="'navbar_contact_' + result.contact_id">
+
+                                <ul class="navbar-nav mr-auto">
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.contact_id = result.contact_id">
+
+                                            <i class="fas fa-times mr-1"></i>Excluir
+
+                                        </a>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </nav>
 
                     </div>
-
-                    <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
-
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_contact_' + result.contact_id" v-bind:aria-controls="'#navbar_contact_' + result.contact_id" aria-expanded="false" aria-label="Toggle navigation">
-
-                            <span class="navbar-toggler-icon"></span>
-
-                        </button>
-
-                        <div class="collapse navbar-collapse" v-bind:id="'navbar_contact_' + result.contact_id">
-
-                            <ul class="navbar-nav mr-auto">
-
-                                <li class="nav-item">
-
-                                    <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.contact_id = result.contact_id">
-
-                                        <i class="fas fa-times mr-1"></i>Excluir
-
-                                    </a>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </nav>
 
                 </div>
 

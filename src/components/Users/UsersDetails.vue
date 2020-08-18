@@ -2,109 +2,31 @@
 
     <div>
 
-        <h4 class="animate__animated animate__fadeIn">
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <i class="far fa-user-circle mr-1"></i>Perfil
+            <div class="navbar-brand">
 
-        </h4>
-
-        <div class="mt-3 animate__animated animate__fadeIn" v-if="form.progress_bar">
-
-            <div class="card shadow-sm">
-
-                <div class="card-body">
-
-                    <Progress percent="100"></Progress>
-
-                </div>
+                <i class="far fa-folder-open mr-1"></i>Perfil/<span class="ml-1 badge badge-primary">Detalhes</span>
 
             </div>
 
-        </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-        <div class="mt-3 animate__animated animate__fadeIn" v-else-if="query.result <= 0">
+                <span class="navbar-toggler-icon"></span>
 
-            <AlertInfo message="Não foram localizados registros"></AlertInfo>
+            </button>
 
-        </div>
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-        <div class="bg-white shadow-sm rounded overflow-hidden" v-else>
+                <ul class="navbar-nav ml-auto">
 
-            <div class="px-4 pt-0 pb-4 bg-dark">
+                    <li class="nav-item">
 
-                <div class="media align-items-end profile-header">
+                        <a type="button" v-on:click="List()" class="nav-link">
 
-                    <div class="profile mr-3 animate__animated animate__fadeIn">
-
-                        <img v-bind:src="query.result_user.file_path + '/resize/' + query.result_user.file_name" v-bind:alt="query.result_user.file_name" width="230" class="rounded mb-2 img-thumbnail">
-
-                        <a type="button" class="btn btn-primary btn-sm btn-block text-white" v-on:click="EditForm(query.result_user.user_name, query.result_user.user_email)" v-if="!form.show_form">
-
-                            Editar
+                            <i class="fas fa-sync mr-1"></i>Atualiar
 
                         </a>
-
-                        <a type="button" class="btn btn-danger btn-sm btn-block text-white" v-on:click="ShowForm()" v-else>
-
-                            Cancelar
-
-                        </a>
-
-                    </div>
-
-                    <div class="media-body mb-5 text-white animate__animated animate__fadeIn">
-
-                        <h4 class="mt-0 mb-0">
-
-                            {{ query.result_user.user_name }}
-
-                        </h4>
-
-                        <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>
-
-                            {{ query.result_user.user_function }}
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="bg-light p-4 d-flex justify-content-end text-center ">
-
-                <ul class="list-inline mb-0">
-
-                    <li class="list-inline-item animate__animated animate__fadeIn">
-
-                        <h5 class="font-weight-bold mb-0 d-block">
-
-                            {{ query.result_user.quantity_content }}
-
-                        </h5>
-
-                        <small class="text-muted">
-
-                            <i class="fa fa-picture-o mr-1"></i>Conteúdos
-
-                        </small>
-
-                    </li>
-
-                    <li class="list-inline-item animate__animated animate__fadeIn">
-
-                        <h5 class="font-weight-bold mb-0 d-block">
-
-                            {{ query.result_user.quantity_content_sub }}
-
-                        </h5>
-
-                        <small class="text-muted">
-
-                            <i class="fa fa-user-circle-o mr-1"></i>Sub-Conteúdos
-
-                        </small>
 
                     </li>
 
@@ -112,49 +34,159 @@
 
             </div>
 
-            <div class="py-4 px-4">
+        </nav>
 
-                <div v-show="form.show_form" class="mb-3 animate__animated animate__fadeIn">
+        <div class="col-md-12 mt-3">
 
-                    <div class="card shadow-sm border-dashed ">
+            <div class="mt-3 animate__animated animate__fadeIn" v-if="form.progress_bar">
 
-                        <div class="card-body">
+                <div class="card shadow-sm">
 
-                            <div class="media my-3">
+                    <div class="card-body">
 
-                                <div class="media-body">
+                        <Progress percent="100"></Progress>
 
-                                    <div class="row">
+                    </div>
 
-                                        <div class="col-md-12">
+                </div>
 
-                                            <div class="row">
+            </div>
 
-                                                <div class="col-md-6">
+            <div class="mt-3 animate__animated animate__fadeIn" v-else-if="query.result <= 0">
 
-                                                    <div class="form-group">
+                <AlertInfo message="Não foram localizados registros"></AlertInfo>
 
-                                                        <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
+            </div>
+
+            <div class="bg-white shadow-sm rounded overflow-hidden" v-else>
+
+                <div class="px-4 pt-0 pb-4 bg-dark">
+
+                    <div class="media align-items-end profile-header">
+
+                        <div class="profile mr-3 animate__animated animate__fadeIn">
+
+                            <img v-bind:src="query.result_user.file_path + '/resize/' + query.result_user.file_name" v-bind:alt="query.result_user.file_name" width="230" class="rounded mb-2 img-thumbnail">
+
+                            <a type="button" class="btn btn-primary btn-sm btn-block text-white" v-on:click="EditForm(query.result_user.user_name, query.result_user.user_email)" v-if="!form.show_form">
+
+                                Editar
+
+                            </a>
+
+                            <a type="button" class="btn btn-danger btn-sm btn-block text-white" v-on:click="ShowForm()" v-else>
+
+                                Cancelar
+
+                            </a>
+
+                        </div>
+
+                        <div class="media-body mb-5 text-white animate__animated animate__fadeIn">
+
+                            <h4 class="mt-0 mb-0">
+
+                                {{ query.result_user.user_name }}
+
+                            </h4>
+
+                            <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>
+
+                                {{ query.result_user.user_function }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="bg-light p-4 d-flex justify-content-end text-center ">
+
+                    <ul class="list-inline mb-0">
+
+                        <li class="list-inline-item animate__animated animate__fadeIn">
+
+                            <h5 class="font-weight-bold mb-0 d-block">
+
+                                {{ query.result_user.quantity_content }}
+
+                            </h5>
+
+                            <small class="text-muted">
+
+                                <i class="fa fa-picture-o mr-1"></i>Conteúdos
+
+                            </small>
+
+                        </li>
+
+                        <li class="list-inline-item animate__animated animate__fadeIn">
+
+                            <h5 class="font-weight-bold mb-0 d-block">
+
+                                {{ query.result_user.quantity_content_sub }}
+
+                            </h5>
+
+                            <small class="text-muted">
+
+                                <i class="fa fa-user-circle-o mr-1"></i>Sub-Conteúdos
+
+                            </small>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="py-4 px-4">
+
+                    <div v-show="form.show_form" class="mb-3 animate__animated animate__fadeIn">
+
+                        <div class="card shadow-sm border-dashed ">
+
+                            <div class="card-body">
+
+                                <div class="media my-3">
+
+                                    <div class="media-body">
+
+                                        <div class="row">
+
+                                            <div class="col-md-12">
+
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+
+                                                        <div class="form-group">
+
+                                                            <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
+
+                                                        </div>
 
                                                     </div>
 
-                                                </div>
+                                                    <div class="col-md-6">
 
-                                                <div class="col-md-6">
+                                                        <div class="form-group">
 
-                                                    <div class="form-group">
+                                                            <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password">
 
-                                                        <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password">
+                                                        </div>
 
                                                     </div>
 
-                                                </div>
+                                                    <div class="col-md-12">
 
-                                                <div class="col-md-12">
+                                                        <div class="form-group">
 
-                                                    <div class="form-group">
+                                                            <input type="email" class="form-control" placeholder="Email" v-model="inputs.email">
 
-                                                        <input type="email" class="form-control" placeholder="Email" v-model="inputs.email">
+                                                        </div>
 
                                                     </div>
 
@@ -162,15 +194,13 @@
 
                                             </div>
 
-                                        </div>
+                                            <div class="col-md-12">
 
-                                        <div class="col-md-12">
+                                                <div class="form-group">
 
-                                            <div class="form-group">
+                                                    <div class="border-dashed-default rounded">
 
-                                                <div class="border-dashed-default rounded">
-
-                                                    <div class="file-drop-area" v-if="!inputs_file.file">
+                                                        <div class="file-drop-area" v-if="!inputs_file.file">
 
                                                         <span class="fake-btn mr-3">
 
@@ -178,27 +208,29 @@
 
                                                         </span>
 
-                                                        <input class="file-input" type="file" v-on:change="onChange">
+                                                            <input class="file-input" type="file" v-on:change="onChange">
 
-                                                    </div>
+                                                        </div>
 
-                                                    <div v-else>
+                                                        <div v-else>
 
-                                                        <div class="media">
+                                                            <div class="media">
 
-                                                            <div class="media-body p-3">
+                                                                <div class="media-body p-3">
 
-                                                                <h3 class="mt-0">
+                                                                    <h3 class="mt-0">
 
-                                                                    {{ inputs_file.name_auxiliary }}
+                                                                        {{ inputs_file.name_auxiliary }}
 
-                                                                </h3>
+                                                                    </h3>
 
-                                                                <button class="btn btn-default" v-on:click="ResetFormFile()">
+                                                                    <button class="btn btn-default" v-on:click="ResetFormFile()">
 
-                                                                    <i class="fas fa-eraser mr-1"></i> Remover Arquivo
+                                                                        <i class="fas fa-eraser mr-1"></i> Remover Arquivo
 
-                                                                </button>
+                                                                    </button>
+
+                                                                </div>
 
                                                             </div>
 
@@ -210,21 +242,21 @@
 
                                             </div>
 
-                                        </div>
+                                            <div class="col-md-12 text-right mt-3">
 
-                                        <div class="col-md-12 text-right mt-3">
+                                                <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.email">
 
-                                            <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.email">
+                                                    <i class="fas fa-paper-plane"></i> Salvar
 
-                                                <i class="fas fa-paper-plane"></i> Salvar
+                                                </button>
 
-                                            </button>
+                                                <button class="btn btn-default disabled" v-else disabled>
 
-                                            <button class="btn btn-default disabled" v-else disabled>
+                                                    <i class="fas fa-paper-plane"></i> Salvar
 
-                                                <i class="fas fa-paper-plane"></i> Salvar
+                                                </button>
 
-                                            </button>
+                                            </div>
 
                                         </div>
 
@@ -236,147 +268,147 @@
 
                         </div>
 
+                        <hr>
+
                     </div>
 
-                    <hr>
+                    <div class="d-flex align-items-center justify-content-between mb-3 animate__animated animate__fadeIn">
 
-                </div>
+                        <h5 class="mb-0">
 
-                <div class="d-flex align-items-center justify-content-between mb-3 animate__animated animate__fadeIn">
+                            Conteúdos
 
-                    <h5 class="mb-0">
+                        </h5>
 
-                        Conteúdos
+                    </div>
 
-                    </h5>
+                    <div class="row">
 
-                </div>
+                        <div class="col-md-3 mb-4 animate__animated animate__fadeIn" v-for="(result, index) in query.result_content" v-bind:key="index">
 
-                <div class="row">
+                            <div class="card shadow-sm">
 
-                    <div class="col-md-3 mb-4 animate__animated animate__fadeIn" v-for="(result, index) in query.result_content" v-bind:key="index">
+                                <div class="card-body">
 
-                        <div class="card shadow-sm">
+                                    <h4 class="mb-0 card-title">
 
-                            <div class="card-body">
+                                        <strong>
 
-                                <h4 class="mb-0 card-title">
+                                            {{ result.title }}
 
-                                    <strong>
+                                        </strong>
 
-                                        {{ result.title }}
+                                    </h4>
 
-                                    </strong>
+                                    <div class="mt-1">
 
-                                </h4>
+                                        <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
 
-                                <div class="mt-1">
-
-                                    <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
+                                    </div>
 
                                 </div>
+
+                                <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
+
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                                        <span class="navbar-toggler-icon"></span>
+
+                                    </button>
+
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                                        <ul class="navbar-nav mr-auto">
+
+                                            <li class="nav-item">
+
+                                                <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id}}" class="nav-link">
+
+                                                    <i class="far fa-eye mr-1"></i>Ver
+
+                                                </router-link>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                </nav>
 
                             </div>
-
-                            <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
-
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-
-                                    <span class="navbar-toggler-icon"></span>
-
-                                </button>
-
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                                    <ul class="navbar-nav mr-auto">
-
-                                        <li class="nav-item">
-
-                                            <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id}}" class="nav-link">
-
-                                                <i class="far fa-eye mr-1"></i>Ver
-
-                                            </router-link>
-
-                                        </li>
-
-                                    </ul>
-
-                                </div>
-
-                            </nav>
 
                         </div>
 
                     </div>
 
-                </div>
+                    <hr>
 
-                <hr>
+                    <div class="d-flex align-items-center justify-content-between mb-3 animate__animated animate__fadeIn">
 
-                <div class="d-flex align-items-center justify-content-between mb-3 animate__animated animate__fadeIn">
+                        <h5 class="mb-0">
 
-                    <h5 class="mb-0">
+                            Sub-Conteúdos
 
-                        Sub-Conteúdos
+                        </h5>
 
-                    </h5>
+                    </div>
 
-                </div>
+                    <div class="row">
 
-                <div class="row">
+                        <div class="col-md-3 mb-4 animate__animated animate__fadeIn" v-for="(result, index) in query.result_content_sub" v-bind:key="index">
 
-                    <div class="col-md-3 mb-4 animate__animated animate__fadeIn" v-for="(result, index) in query.result_content_sub" v-bind:key="index">
+                            <div class="card shadow-sm">
 
-                        <div class="card shadow-sm">
+                                <div class="card-body">
 
-                            <div class="card-body">
+                                    <h4 class="mb-0 card-title">
 
-                                <h4 class="mb-0 card-title">
+                                        <strong>
 
-                                    <strong>
+                                            {{ result.title }}
 
-                                        {{ result.title }}
+                                        </strong>
 
-                                    </strong>
+                                    </h4>
 
-                                </h4>
+                                    <div class="mt-1">
 
-                                <div class="mt-1">
+                                        <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
 
-                                    <span class="text-muted"><i class="fas fa-hashtag mr-1"></i>{{ result.content_id }}</span> - <span class="text-muted"><i class="far fa-clock mr-1"></i> {{ result.date_register }}</span> - <span class="text-muted">{{ result.user_name }}</span> - <span class="text-muted">{{ result.user_function }}</span>
+                                    </div>
 
                                 </div>
+
+                                <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
+
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentSub" aria-controls="navbarSupportedContentSub" aria-expanded="false" aria-label="Toggle navigation">
+
+                                        <span class="navbar-toggler-icon"></span>
+
+                                    </button>
+
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContentSub">
+
+                                        <ul class="navbar-nav mr-auto">
+
+                                            <li class="nav-item">
+
+                                                <router-link v-bind:to="{name : 'content-sub-details', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
+
+                                                    <i class="far fa-eye mr-1"></i>Ver
+
+                                                </router-link>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                </nav>
 
                             </div>
-
-                            <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
-
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContentSub" aria-controls="navbarSupportedContentSub" aria-expanded="false" aria-label="Toggle navigation">
-
-                                    <span class="navbar-toggler-icon"></span>
-
-                                </button>
-
-                                <div class="collapse navbar-collapse" id="navbarSupportedContentSub">
-
-                                    <ul class="navbar-nav mr-auto">
-
-                                        <li class="nav-item">
-
-                                            <router-link v-bind:to="{name : 'content-sub-details', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
-
-                                                <i class="far fa-eye mr-1"></i>Ver
-
-                                            </router-link>
-
-                                        </li>
-
-                                    </ul>
-
-                                </div>
-
-                            </nav>
 
                         </div>
 

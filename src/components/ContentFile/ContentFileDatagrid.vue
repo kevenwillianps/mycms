@@ -4,83 +4,101 @@
 
         <ModalConfirm title="Atenção!" message="Deseja excluir este registro ?" v-on:ConfirmRequest="Delete"></ModalConfirm>
 
-        <div class="row animate__animated animate__fadeIn">
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <div class="col-md-10">
+            <div class="navbar-brand">
 
-                <h4>
-
-                    <i class="far fa-folder-open mr-1"></i>
-
-                    <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}">
-
-                        Conteúdo/
-
-                    </router-link>
-
-                    <span class="ml-1 badge badge-primary">
-
-                        Arquivos
-
-                    </span>
-
-                </h4>
+                <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/Arquivos/ <span class="ml-1 badge badge-primary">Listagem</span>
 
             </div>
 
-            <div class="col-md-2 text-right">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-                <h4>
+                <span class="navbar-toggler-icon"></span>
 
-                    <button class="btn btn-primary" v-on:click="Save()">
+            </button>
 
-                        <i class="fas fa-paper-plane"></i> Salvar
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-                    </button>
+                <ul class="navbar-nav ml-auto">
 
-                </h4>
+                    <li class="nav-item">
+
+                        <a type="button" v-on:click="List()" class="nav-link">
+
+                            <i class="fas fa-sync mr-1"></i>Atualiar
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a type="button" v-on:click="Save()" class="nav-link">
+
+                            <i class="fas fa-paper-plane mr-1"></i>Salvar
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <router-link v-bind:to="{ name : 'content-file-form', params : { user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id } }" class="nav-link">
+
+                            <i class="fas fa-pencil-alt mr-1"></i>Novo
+
+                        </router-link>
+
+                    </li>
+
+                </ul>
 
             </div>
 
-        </div>
+        </nav>
 
-        <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
+        <div class="col-md-12 mt-3">
 
-            <div class="card shadow-sm">
+            <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
 
-                <div class="card-body">
+                <div class="card shadow-sm">
 
-                    <Progress percent="100"></Progress>
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            <div class="animate__animated animate__fadeIn" v-else-if="query.result <= 0">
 
-        <div class="animate__animated animate__fadeIn" v-else-if="query.result <= 0">
+                <div class="card shadow-sm">
 
-            <div class="card shadow-sm">
+                    <div class="card-body">
 
-                <div class="card-body">
+                        <div class="media">
 
-                    <div class="media">
+                            <img src="image/svg/003-error.svg" width="70px" class="mr-3" alt="MyCMS - Keven Willian">
 
-                        <img src="image/svg/003-error.svg" width="70px" class="mr-3" alt="MyCMS - Keven Willian">
+                            <div class="media-body">
 
-                        <div class="media-body">
+                                <h3 class="mt-0">
 
-                            <h3 class="mt-0">
+                                    Oooops!
 
-                                Oooops!
+                                </h3>
 
-                            </h3>
+                                <h5 class="text-muted">
 
-                            <h5 class="text-muted">
+                                    Não foram localizado registros
 
-                                Não foram localizado registros
+                                </h5>
 
-                            </h5>
+                            </div>
 
                         </div>
 
@@ -90,17 +108,15 @@
 
             </div>
 
-        </div>
+            <div class="row" v-else>
 
-        <div class="row" v-else>
+                <div class="col-md-2 mb-2 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
 
-            <div class="col-md-2 mb-2 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
+                    <div class="card shadow-sm">
 
-                <div class="card shadow-sm">
+                        <div class="card-body">
 
-                    <div class="card-body">
-
-                        <h4 class="card-title">
+                            <h4 class="card-title">
 
                             <span class="badge badge-primary">
 
@@ -108,15 +124,15 @@
 
                             </span>
 
-                        </h4>
+                            </h4>
 
-                    </div>
+                        </div>
 
-                    <img v-bind:src="result.path + '/thumbnail/' + result.name" class="card-img-top" v-bind:alt="result.name">
+                        <img v-bind:src="result.path + '/thumbnail/' + result.name" class="card-img-top" v-bind:alt="result.name">
 
-                    <div class="card-body">
+                        <div class="card-body">
 
-                        <h6 class="card-title">
+                            <h6 class="card-title">
 
                             <span class="text-muted">
 
@@ -124,29 +140,31 @@
 
                             </span>
 
-                        </h6>
+                            </h6>
 
-                        <div class="mt-1">
+                            <div class="mt-1">
 
-                            <div class="form-group">
+                                <div class="form-group">
 
-                                <input type="number" class="form-control" v-model="result.position"/>
+                                    <input type="number" class="form-control" v-model="result.position"/>
 
-                            </div>
+                                </div>
 
-                            <div class="form-group mb-0">
+                                <div class="form-group mb-0">
 
-                                <div class="input-group">
+                                    <div class="input-group">
 
-                                    <select class="custom-select" v-model="result.highlighter_file_id" id="inputGroupSelect01">
+                                        <select class="custom-select" v-model="result.highlighter_file_id" id="inputGroupSelect01">
 
-                                        <option v-bind:value="result_select.highlighter_file_id" v-for="(result_select, index_select) in query.result_highlighters_file" v-bind:key="index_select">
+                                            <option v-bind:value="result_select.highlighter_file_id" v-for="(result_select, index_select) in query.result_highlighters_file" v-bind:key="index_select">
 
-                                            {{ result_select.description }}
+                                                {{ result_select.description }}
 
-                                        </option>
+                                            </option>
 
-                                    </select>
+                                        </select>
+
+                                    </div>
 
                                 </div>
 
@@ -154,35 +172,35 @@
 
                         </div>
 
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
+
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_file_datagrid_' + result.content_id" v-bind:aria-controls="'#navbar_content_file_datagrid_' + result.content_id" aria-expanded="false" aria-label="Toggle navigation">
+
+                                <span class="navbar-toggler-icon"></span>
+
+                            </button>
+
+                            <div class="collapse navbar-collapse" v-bind:id="'navbar_content_file_datagrid_' + result.content_id">
+
+                                <ul class="navbar-nav mr-auto">
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_file_id = result.content_file_id">
+
+                                            <i class="fas fa-fire-alt mr-1"></i>Excluir
+
+                                        </a>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </nav>
+
                     </div>
-
-                    <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
-
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_file_datagrid_' + result.content_id" v-bind:aria-controls="'#navbar_content_file_datagrid_' + result.content_id" aria-expanded="false" aria-label="Toggle navigation">
-
-                            <span class="navbar-toggler-icon"></span>
-
-                        </button>
-
-                        <div class="collapse navbar-collapse" v-bind:id="'navbar_content_file_datagrid_' + result.content_id">
-
-                            <ul class="navbar-nav mr-auto">
-
-                                <li class="nav-item">
-
-                                    <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_file_id = result.content_file_id">
-
-                                        <i class="fas fa-fire-alt mr-1"></i>Excluir
-
-                                    </a>
-
-                                </li>
-
-                            </ul>
-
-                        </div>
-
-                    </nav>
 
                 </div>
 
