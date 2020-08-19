@@ -35,6 +35,10 @@ import ContentSubFileForm from './components/ContentSubFile/ContentSubFileForm';
 import ContentSubAuxiliaryDatagrid from './components/ContentSubAuxiliary/ContentSubAuxiliaryDatagrid';
 import ContentSubAuxiliaryForm from './components/ContentSubAuxiliary/ContentSubAuxiliaryForm';
 
+/** Importação dos componentes 'content' **/
+import ContentSubAuxiliaryFileDatagrid from './components/ContentSubAuxiliaryFile/ContentSubAuxiliaryFileDatagrid';
+import ContentSubAuxiliaryFileForm from './components/ContentSubAuxiliaryFile/ContentSubAuxiliaryFileForm';
+
 /** Importação dos componentes 'situation' **/
 import SituationDatagrid from './components/Situation/SituationDatagrid';
 import SituationForm from './components/Situation/SituationForm';
@@ -181,6 +185,24 @@ const routes = [
         path: '/content-sub-auxiliary-form/:user_id/:user_function_id/:content_id/:content_sub_id/:action',
         component: ContentSubAuxiliaryForm,
         name: 'content-sub-auxiliary-form',
+
+    },
+
+    {
+
+        /** Listagem de Conteúdo **/
+        path: '/content-sub-auxiliary-file-datagrid/:user_id/:user_function_id/:content_id/:content_sub_id',
+        component: ContentSubAuxiliaryFileDatagrid,
+        name: 'content-sub-auxiliary-file-datagrid',
+
+    },
+
+    {
+
+        /** Listagem de Conteúdo **/
+        path: '/content-sub-auxiliary-file-form/:user_id/:user_function_id/:content_id/:content_sub_id',
+        component: ContentSubAuxiliaryFileForm,
+        name: 'content-sub-auxiliary-file-form',
 
     },
 

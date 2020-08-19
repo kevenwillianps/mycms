@@ -6,7 +6,19 @@
 
             <div class="navbar-brand">
 
-                <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/Sub Conteúdo/<span class="ml-1 badge badge-primary">Formulário</span>
+                <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id }}">
+
+                    <i class="far fa-folder-open mr-1"></i>Conteúdo Principal
+
+                </router-link>
+
+                <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id }}">
+
+                    /Sub Conteúdo/
+
+                </router-link>
+
+                <span class="ml-1 badge badge-primary">Formulário</span>
 
             </div>
 

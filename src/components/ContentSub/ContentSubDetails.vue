@@ -8,7 +8,19 @@
 
             <div class="navbar-brand">
 
-                <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/Sub Conteúdo/Auxiliar/<span class="ml-1 badge badge-primary">Listagem</span>
+                <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id }}">
+
+                    <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/
+
+                </router-link>
+
+                <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id }}">
+
+                    Sub Conteúdo/
+
+                </router-link>
+
+                Auxiliar/<span class="ml-1 badge badge-primary">Listagem</span>
 
             </div>
 
@@ -165,7 +177,7 @@
 
                                     <li class="nav-item">
 
-                                        <router-link v-bind:to="{name : 'content-sub-file-datagrid', params : {content_sub_id : result.content_sub_id}}" class="nav-link">
+                                        <router-link v-bind:to="{name : 'content-sub-auxiliary-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : result.content_id, content_sub_id : result.content_sub_id}}" class="nav-link">
 
                                             <i class="far fa-file mr-1"></i>Arquivos
 

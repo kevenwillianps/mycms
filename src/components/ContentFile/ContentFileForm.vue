@@ -6,7 +6,13 @@
 
             <div class="navbar-brand">
 
-                <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/Arquivos/<span class="ml-1 badge badge-primary">Formulário</span>
+                <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id }}">
+
+                    <i class="far fa-folder-open mr-1"></i>Conteúdo Principal
+
+                </router-link>
+
+                /Arquivos/<span class="ml-1 badge badge-primary">Formulário</span>
 
             </div>
 
@@ -38,7 +44,7 @@
 
         <div class="col-md-12 mt-3">
 
-            <div class="animate animate__fadeIn" v-if="form.progress_bar">
+            <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
 
                 <div class="card shadow-sm">
 

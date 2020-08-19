@@ -6,7 +6,25 @@
 
             <div class="navbar-brand">
 
-                <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/Sub Conteúdo/Auxiliar/<span class="ml-1 badge badge-primary">Formulário</span>
+                <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id }}">
+
+                    <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/
+
+                </router-link>
+
+                <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id }}">
+
+                    Sub Conteúdo/
+
+                </router-link>
+
+                <router-link v-bind:to="{name : 'content-sub-details', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id, content_sub_id : inputs.content_sub_auxiliary_id }}">
+
+                    Auxiliar/
+
+                </router-link>
+
+                <span class="ml-1 badge badge-primary">Formulário</span>
 
             </div>
 
@@ -786,12 +804,15 @@
 
                                         /** Retorno para uma página especifica **/
                                         this.$router.replace({
-                                            name: 'content-sub-datagrid',
-                                            params: {
-                                                user_id: this.session.user_id,
-                                                user_function_id: this.session.user_function_id,
-                                                content_id: this.inputs.content_id
+
+                                            name : 'content-sub-details',
+                                            params : {
+                                                user_id : this.session.user_id,
+                                                user_function_id : this.session.user_function_id,
+                                                content_id : this.inputs.content_id,
+                                                content_sub_id : this.inputs.content_sub_auxiliary_id
                                             }
+
                                         });
 
                                     }
@@ -841,12 +862,15 @@
                 }
 
                 this.$router.replace({
-                    name: 'content-sub-datagrid',
-                    params: {
-                        user_id: this.session.user_id,
-                        user_function_id: this.session.user_function_id,
-                        content_sub_id: this.inputs.content_sub_id
+
+                    name : 'content-sub-details',
+                    params : {
+                        user_id : this.session.user_id,
+                        user_function_id : this.session.user_function_id,
+                        content_id : this.inputs.content_id,
+                        content_sub_id : this.inputs.content_sub_auxiliary_id
                     }
+
                 });
 
             },

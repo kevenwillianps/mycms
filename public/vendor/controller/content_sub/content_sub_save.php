@@ -35,6 +35,8 @@ try {
         $description              = isset($inputs['inputs']['description'])              ? (string)$main->antiInjection($inputs['inputs']['description'])                 : '';
         $content_resume           = isset($inputs['inputs']['content_resume'])           ? (string)$main->antiInjection($inputs['inputs']['content_resume'])              : '';
         $content_complete         = isset($inputs['inputs']['content_complete'])         ? (string)$main->antiInjection($inputs['inputs']['content_complete'], 'S') : '';
+        $start_date               = isset($inputs['inputs']['start_date'])               ? (string)$main->antiInjection($inputs['inputs']['start_date'])                  : date("y-m-d");
+        $closing_date             = isset($inputs['inputs']['closing_date'])             ? (string)$main->antiInjection($inputs['inputs']['closing_date'])                : date("y-m-d");
         $date_register            = isset($inputs['inputs']['date_register'])            ? (string)$main->antiInjection($inputs['inputs']['date_register'])               : date("y-m-d h:m:s");
         $date_update              = isset($inputs['inputs']['date_update'])              ? (string)$main->antiInjection($inputs['inputs']['date_update'])                 : date("y-m-d h:m:s");
 
@@ -92,7 +94,7 @@ try {
         } else {
 
             /** Executo o método **/
-            $contentSub->save($content_sub_id, $content_id, $user_id, $situation_id, $highlighter_id, $menu_position, $url, $title, $title_menu, $description, $content_resume, $content_complete, $date_register, $date_update);
+            $contentSub->save($content_sub_id, $content_id, $user_id, $situation_id, $highlighter_id, $menu_position, $url, $title, $title_menu, $description, $content_resume, $content_complete, $start_date, $closing_date, $date_register, $date_update);
 
             $result = array(
 

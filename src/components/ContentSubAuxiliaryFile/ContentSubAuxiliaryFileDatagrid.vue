@@ -10,11 +10,23 @@
 
                 <router-link v-bind:to="{name : 'content-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id }}">
 
-                    <i class="far fa-folder-open mr-1"></i>Conteúdo Principal
+                    <i class="far fa-folder-open mr-1"></i>Conteúdo Principal/
 
                 </router-link>
 
-                /Arquivos/ <span class="ml-1 badge badge-primary">Listagem</span>
+                <router-link v-bind:to="{name : 'content-sub-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id }}">
+
+                    Sub Conteúdo/
+
+                </router-link>
+
+                <router-link v-bind:to="{name : 'content-sub-details', params : {user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id, content_sub_id : inputs.content_sub_id }}">
+
+                    Auxiliar/
+
+                </router-link>
+
+                Arquivos/ <span class="ml-1 badge badge-primary">Listagem</span>
 
             </div>
 
@@ -50,7 +62,7 @@
 
                     <li class="nav-item">
 
-                        <router-link v-bind:to="{ name : 'content-file-form', params : { user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id } }" class="nav-link">
+                        <router-link v-bind:to="{ name : 'content-sub-file-form', params : { user_id : session.user_id, user_function_id : session.user_function_id, content_id : inputs.content_id, content_sub_id : inputs.content_sub_id } }" class="nav-link">
 
                             <i class="fas fa-pencil-alt mr-1"></i>Novo
 
@@ -126,7 +138,7 @@
 
                             <span class="badge badge-primary">
 
-                                <i class="fas fa-hashtag mr-1"></i>{{ result.content_file_id }}
+                                <i class="fas fa-hashtag mr-1"></i>{{ result.content_sub_file_id }}
 
                             </span>
 
@@ -180,19 +192,19 @@
 
                         <nav class="navbar navbar-card navbar-expand-lg navbar-light card-footer">
 
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_file_datagrid_' + result.content_id" v-bind:aria-controls="'#navbar_content_file_datagrid_' + result.content_id" aria-expanded="false" aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" v-bind:data-target="'#navbar_content_sub_file_datagrid_' + result.content_sub_file_id" v-bind:aria-controls="'#navbar_content_sub_file_datagrid_' + result.content_sub_file_id" aria-expanded="false" aria-label="Toggle navigation">
 
                                 <span class="navbar-toggler-icon"></span>
 
                             </button>
 
-                            <div class="collapse navbar-collapse" v-bind:id="'navbar_content_file_datagrid_' + result.content_id">
+                            <div class="collapse navbar-collapse" v-bind:id="'navbar_content_sub_file_datagrid_' + result.content_sub_file_id">
 
                                 <ul class="navbar-nav mr-auto">
 
                                     <li class="nav-item">
 
-                                        <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_file_id = result.content_file_id">
+                                        <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.content_sub_file_id = result.content_sub_file_id">
 
                                             <i class="fas fa-fire-alt mr-1"></i>Excluir
 
@@ -228,7 +240,7 @@
     export default {
 
         /** Nome do componente atual **/
-        name: "ContentFileDatagrid",
+        name: "ContentSubFileDatagrid",
 
         components: {
 
@@ -256,7 +268,8 @@
                 inputs: {
 
                     content_id: this.$route.params.content_id,
-                    content_file_id: null,
+                    content_sub_id: this.$route.params.content_sub_id,
+                    content_sub_file_id: null,
 
                 },
                 /** Dados da Seção **/
@@ -280,7 +293,7 @@
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=CONTENT_FILE&ACTION=CONTENT_FILE_DATAGRID', {
+                axios.post('router.php?TABLE=CONTENT_SUB_FILE&ACTION=CONTENT_SUB_FILE_DATAGRID', {
                     inputs: this.inputs
                 })
 
@@ -374,7 +387,7 @@
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao servidor **/
-                axios.post('router.php?TABLE=CONTENT_FILE&ACTION=CONTENT_FILE_POSITION_SAVE', {
+                axios.post('router.php?TABLE=CONTENT_SUB_FILE&ACTION=CONTENT_SUB_FILE_POSITION_SAVE', {
                     inputs: this.query.result
                 })
 
@@ -432,7 +445,7 @@
                 this.form.progress_bar = true;
 
                 /** Evnio uma requisão ao meu servidor pelo método 'Post' **/
-                axios.post('router.php?TABLE=CONTENT_FILE&ACTION=CONTENT_FILE_DELETE', {
+                axios.post('router.php?TABLE=CONTENT_SUB_FILE&ACTION=CONTENT_SUB_FILE_DELETE', {
                     inputs: this.inputs
                 })
 

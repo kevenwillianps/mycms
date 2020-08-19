@@ -31,6 +31,8 @@ class ContentSub
     private $description = null;
     private $content_resume = null;
     private $content_complete = null;
+    private $start_date = null;
+    private $closing_date = null;
     private $date_register = null;
     private $date_update = null;
 
@@ -124,7 +126,7 @@ class ContentSub
     }
 
     /** Insere/autualiza um registro no banco de dados **/
-    public function save($content_sub_id, $content_id, $user_id, $situation_id, $highlighter_id, $menu_position, $url, $title, $title_menu, $description, $content_resume, $content_complete, $date_register, $date_update)
+    public function save($content_sub_id, $content_id, $user_id, $situation_id, $highlighter_id, $menu_position, $url, $title, $title_menu, $description, $content_resume, $content_complete, $start_date, $closing_date, $date_register, $date_update)
     {
 
         /** Parâmetros de entrada **/
@@ -140,6 +142,8 @@ class ContentSub
         $this->description              = (string)$description;
         $this->content_resume           = (string)$content_resume;
         $this->content_complete         = (string)$content_complete;
+        $this->start_date               = (string)$start_date;
+        $this->closing_date             = (string)$closing_date;
         $this->date_register            = (string)$date_register;
         $this->date_update              = (string)$date_update;
 
@@ -147,11 +151,13 @@ class ContentSub
         if ($this->content_sub_id == 0) {
 
             /** Consulta SQL **/
-            $this->sql = "INSERT INTO content_sub(content_sub_id, content_id, user_id, situation_id, menu_position, highlighter_id, url, title, title_menu, description, content_resume, content_complete, date_register, date_update)VALUES(:content_sub_id, :content_id, :user_id, :situation_id, :menu_position, :highlighter_id, :url, :title, :title_menu, :description, :content_resume, :content_complete, :date_register, :date_update);";
+            $this->sql = "INSERT INTO content_sub(content_sub_id, content_id, user_id, situation_id, menu_position, highlighter_id, url, title, title_menu, description, content_resume, content_complete, start_date, closing_date, date_register, date_update)VALUES(:content_sub_id, :content_id, :user_id, :situation_id, :menu_position, :highlighter_id, :url, :title, :title_menu, :description, :content_resume, :content_complete, :start_date, :closing_date, :date_register, :date_update);";
+
         } else {
 
             /** Consulta SQL **/
-            $this->sql = "UPDATE content_sub set content_sub_id = :content_sub_id, content_id = :content_id, user_id = :user_id, situation_id = :situation_id, menu_position = :menu_position, highlighter_id = :highlighter_id, url = :url, title = :title, title_menu = :title_menu, description = :description, content_resume = :content_resume, content_complete = :content_complete, date_register = :date_register, date_update = :date_update WHERE content_sub_id = :content_sub_id;";
+            $this->sql = "UPDATE content_sub set content_sub_id = :content_sub_id, content_id = :content_id, user_id = :user_id, situation_id = :situation_id, menu_position = :menu_position, highlighter_id = :highlighter_id, url = :url, title = :title, title_menu = :title_menu, description = :description, content_resume = :content_resume, content_complete = :content_complete, start_date = :start_date, closing_date = :closing_date, date_register = :date_register, date_update = :date_update WHERE content_sub_id = :content_sub_id;";
+
         }
 
         /** Preparo o sql **/
@@ -170,6 +176,8 @@ class ContentSub
         $this->stmt->bindParam(':description', $this->description);
         $this->stmt->bindParam(':content_resume', $this->content_resume);
         $this->stmt->bindParam(':content_complete', $this->content_complete);
+        $this->stmt->bindParam(':start_date', $this->start_date);
+        $this->stmt->bindParam(':closing_date', $this->closing_date);
         $this->stmt->bindParam(':date_register', $this->date_register);
         $this->stmt->bindParam(':date_update', $this->date_update);
 
