@@ -2,41 +2,61 @@
 
     <div>
 
-        <h4>
-
-            <i class="fas fa-check mr-1"></i>Cargos
-
-        </h4>
-
         <ModalConfirm title="Atenção!" message="Deseja excluir este registro ?" v-on:ConfirmRequest="Delete"></ModalConfirm>
 
-        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <div class="container">
+            <div class="navbar-brand">
 
-                <div class="media m-4">
+                <i class="far fa-folder-open mr-1"></i>Cargos de Usuários/<span class="ml-1 badge badge-primary">Listagem</span>
 
-                    <div class="media-body">
+            </div>
 
-                        <h3 class="mb-0 text-center">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-                            <strong>
+                <span class="navbar-toggler-icon"></span>
 
-                                Novo Cargo
+            </button>
 
-                            </strong>
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-                        </h3>
+                <ul class="navbar-nav ml-auto">
 
-                        <h5 class="mt-2 text-center">
+                    <li class="nav-item">
 
-                            <router-link v-bind:to="{name : 'user-function-form', params : {user_id : session.user_id, user_function_id : 0}}" class="stretched-link text-decoration-none badge badge-light">
+                        <a type="button" v-on:click="List()" class="nav-link">
 
-                                Clique para cadastrar
+                            <i class="fas fa-sync mr-1"></i>Atualiar
 
-                            </router-link>
+                        </a>
 
-                        </h5>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <router-link v-bind:to="{name : 'user-function-form', params : { user_function_id : 0}}" class="nav-link">
+
+                            <i class="fas fa-pencil-alt mr-1"></i>Novo
+
+                        </router-link>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="col-md-12 mt-3">
+
+            <div class="mt-3 animate__animated animate__fadeIn" v-if="form.progress_bar">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
 
                     </div>
 
@@ -44,97 +64,75 @@
 
             </div>
 
-        </div>
+            <div class="row" v-else>
 
-        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+                <div class="col-md-3 mb-3 animate__animated animate__fadeIn" v-for="(result, index) in query.result" v-bind:key="index">
 
-            <div class="card shadow-sm">
+                    <div class="card">
 
-                <div class="card-body">
+                        <div class="card-body">
 
-                    <Progress percent="100"></Progress>
+                            <h5 class="card-title">
 
-                </div>
+                            <span class="badge badge-primary">
 
-            </div>
+                                {{ result.user_function_id }}
 
-        </div>
+                            </span>
 
-        <div class="mt-3 animate animate__fadeIn" v-else-if="query.result <= 0">
+                                {{ result.name }}
 
-            <AlertInfo message="Não foram localizados registros"></AlertInfo>
+                            </h5>
 
-        </div>
+                            <div class="card-text">
 
-        <div class="mt-3 card shadow-sm animate animate__fadeIn" v-else>
-
-            <div class="card-body">
-
-                <ul class="list-unstyled">
-
-                    <li class="media" v-for="(result, index) in query.result" v-bind:key="index">
-
-                        <div class="media-body">
-
-                            <div class="row">
-
-                                <div class="col-md-8">
-
-                                    <h5 class="mt-0 mb-0">
-
-                                        {{ result.name }}
-
-                                    </h5>
-
-                                </div>
-
-                                <div class="col-md-4 text-right">
-
-                                    <a type="button" class="badge badge-danger mr-1 mt-1 text-white" data-toggle="modal" data-target="#myModal" v-on:click="inputs.user_function_id = result.user_function_id">
-
-                                        <i class="fas fa-fire-alt mr-1"></i>Excluir
-
-                                    </a>
-
-                                    <a type="button" class="badge badge-warning mr-1 mt-1 text-white" v-on:click="Form(result.user_function_id)">
-
-                                        <i class="fas fa-pencil-alt mr-1"></i>Editar
-
-                                    </a>
-
-                                </div>
-
-                                <div class="col-md-12">
-
-                                    <p>
-
-                                        {{ result.description }}
-
-                                    </p>
-
-                                    <span class="text-muted">
-
-                                            <i class="fas fa-hashtag mr-1"></i>{{ result.user_function_id }}
-
-                                        </span> -
-
-                                    <span class="text-muted">
-
-                                           <i class="far fa-clock mr-1"></i>{{ result.date_register }}
-
-                                        </span>
-
-                                </div>
+                                {{ result.description }}
 
                             </div>
 
-                            <hr>
-
                         </div>
 
-                    </li>
+                        <nav class="navbar navbar-card navbar-expand-lg navbar-light bg-light card-footer">
 
-                </ul>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                                <span class="navbar-toggler-icon"></span>
+
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                                <ul class="navbar-nav mr-auto">
+
+                                    <li class="nav-item">
+
+                                        <router-link class="nav-link" type="button" v-bind:to="{name : 'user-function-form', params : {user_function_id : result.user_function_id}}">
+
+                                            <i class="fas fa-pencil-alt mr-1"></i>Editar
+
+                                        </router-link>
+
+                                    </li>
+
+                                    <li class="nav-item">
+
+                                        <a class="nav-link" type="button" data-toggle="modal" data-target="#myModal" v-on:click="inputs.user_function_id = result.user_function_id">
+
+                                            <i class="fas fa-fire-alt mr-1"></i>Excluir
+
+                                        </a>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </nav>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -147,18 +145,16 @@
 <script type="text/ecmascript-6">
 
     import axios from 'axios';
-    import AlertInfo from '../Geral/AlertInfo';
     import Progress from '../Geral/Progress';
     import ModalConfirm from '../Geral/ModalConfirm';
 
     export default {
 
-        name: "UsersDatagrid",
+        name: "UserFunctionForm",
 
         components: {
 
             Progress,
-            AlertInfo,
             ModalConfirm,
 
         },
@@ -172,8 +168,6 @@
 
                     progress_bar: false,
                     class: null,
-                    show_form: false,
-                    progressBar: 0,
 
                 },
                 /** Grupo de variáveis que guarda os dados de consultas sql's **/
@@ -182,6 +176,16 @@
                     result: [],
                     message: null,
                     user_functions: [],
+
+                },
+                /** Grupo de variáveis que guardar os dados dos campos do formulário **/
+                inputs: {
+
+                    user_function_id: null,
+                    name: null,
+                    description: null,
+                    date_register: null,
+                    date_update: null,
 
                 },
                 /** Dados da Seção **/
@@ -241,7 +245,7 @@
                     inputs: this.inputs
                 })
 
-                /** Caso tenha sucesso **/
+                    /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/

@@ -225,7 +225,7 @@ class User
         $this->user_id = (int)$user_id;
 
         /** Consulta SQL **/
-        $sql = "select * from user where user_id = :user_id";
+        $sql = "select user_id ,user_function_id, situation_id, name, email, date_birth, access_first, access_last, access_log, date_register, date_update from user where user_id = :user_id";
 
         /** Preparo Sql **/
         $stmt = $this->connection->connect()->prepare($sql);

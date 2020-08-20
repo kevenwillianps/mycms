@@ -25,6 +25,7 @@ try {
 
         /** Parâmetros de entrada **/
         $highlighter_id = isset($inputs['inputs']['highlighter_id']) ? (int)$main->antiInjection($inputs['inputs']['highlighter_id'])   : 0;
+        $user_id        = isset($inputs['inputs']['user_id'])        ? (int)$main->antiInjection($inputs['inputs']['user_id'])          : $_SESSION['MYSUPPORT-USER-ID'];
         $name           = isset($inputs['inputs']['name'])           ? (string)$main->antiInjection($inputs['inputs']['name'])          : '';
         $description    = isset($inputs['inputs']['description'])    ? (string)$main->antiInjection($inputs['inputs']['description'])   : '';
         $date_register  = isset($inputs['inputs']['date_register'])  ? (string)$main->antiInjection($inputs['inputs']['date_register']) : date("y-m-d h:m:s");
@@ -37,6 +38,9 @@ try {
         /** Verifico se o campo situation_id foi preenchido **/
         if ($highlighter_id < 0) {
             array_push($message, '$highlighter_id - O seguinte campo deve ser preenchido/selecionado');
+        }
+        if ($user_id < 0) {
+            array_push($message, '$user_id - O seguinte campo deve ser preenchido/selecionado');
         }
         /** Verifico se o campo name foi preenchido **/
         if (empty($name)) {
@@ -64,7 +68,7 @@ try {
                 "message" => $message
             );
         } else {
-            $highlighter->save($highlighter_id, $name, $description, $date_register, $date_update);
+            $highlighter->save($highlighter_id, $user_id, $name, $description, $date_register, $date_update);
 
             /** Result **/
             $result = array(

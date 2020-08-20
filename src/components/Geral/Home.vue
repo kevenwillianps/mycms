@@ -1,6 +1,6 @@
 <template>
 
-    <div class="col-md-12">
+    <div class="col-md-12 mt-3">
 
         <div class="card shadow-sm">
 

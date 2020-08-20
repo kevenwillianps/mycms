@@ -40,7 +40,7 @@
 
         <div class="col-md-12 mt-3">
 
-            <div class="animate animate__fadeIn" v-if="form.progress_bar">
+            <div class="animate__animated animate__fadeIn" v-if="form.progress_bar">
 
                 <div class="card shadow-sm">
 

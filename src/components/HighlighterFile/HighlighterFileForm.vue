@@ -2,125 +2,121 @@
 
     <div>
 
-        <h4>
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <i class="far fa-folder-open mr-1"></i>Marcadores de Arquivo
+            <div class="navbar-brand">
 
-        </h4>
-
-        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
-
-            <div class="container">
-
-                <div class="media m-4">
-
-                    <div class="media-body">
-
-                        <h3 class="mb-0 text-center">
-
-                            <strong>
-
-                                Cancelar cadastro
-
-                            </strong>
-
-                        </h3>
-
-                        <h5 class="mt-2 text-center">
-
-                            <router-link v-bind:to="{name : 'highlighter-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="stretched-link text-decoration-none badge badge-light">
-
-                                Clique para cancelar
-
-                            </router-link>
-
-                        </h5>
-
-                    </div>
-
-                </div>
+                <i class="far fa-folder-open mr-1"></i>Marcadores/<span class="ml-1 badge badge-primary">Formulário</span>
 
             </div>
 
-        </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+                <span class="navbar-toggler-icon"></span>
 
-            <div class="card shadow-sm">
+            </button>
 
-                <div class="card-body">
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-                    <Progress percent="100"></Progress>
+                <ul class="navbar-nav ml-auto">
 
-                </div>
+                    <li class="nav-item">
 
-            </div>
+                        <router-link v-bind:to="{name : 'highlighter-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="nav-link">
 
-        </div>
+                            <i class="fas fa-bars mr-1"></i>Listagem
 
-        <div class="mt-3 card shadow-sm border-dashed animate animate__fadeIn" v-else>
+                        </router-link>
 
-            <div class="card-body">
+                    </li>
 
-                <div class="media my-3">
-
-                    <div class="media-body">
-
-                        <div class="row">
-
-                            <div class="col-md-12">
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-12 text-right mt-3">
-
-                                <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.description">
-
-                                    <i class="fas fa-paper-plane"></i> Salvar
-
-                                </button>
-
-                                <button class="btn btn-default disabled" v-else disabled>
-
-                                    <i class="fas fa-paper-plane"></i> Salvar
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                </ul>
 
             </div>
 
-        </div>
+        </nav>
+
+       <div class="col-md-12 mt-3">
+
+           <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+
+               <div class="card shadow-sm">
+
+                   <div class="card-body">
+
+                       <Progress percent="100"></Progress>
+
+                   </div>
+
+               </div>
+
+           </div>
+
+           <div class="card shadow-sm border-dashed animate animate__fadeIn" v-else>
+
+               <div class="card-body">
+
+                   <div class="media my-3">
+
+                       <div class="media-body">
+
+                           <div class="row">
+
+                               <div class="col-md-12">
+
+                                   <div class="row">
+
+                                       <div class="col-md-6">
+
+                                           <div class="form-group">
+
+                                               <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
+
+                                           </div>
+
+                                       </div>
+
+                                       <div class="col-md-6">
+
+                                           <div class="form-group">
+
+                                               <input type="text" class="form-control" placeholder="Marcadores" v-model="inputs.description">
+
+                                           </div>
+
+                                       </div>
+
+                                   </div>
+
+                               </div>
+
+                               <div class="col-md-12 text-right mt-3">
+
+                                   <button class="btn btn-primary" v-on:click="Save()" v-if="inputs.name && inputs.description">
+
+                                       <i class="fas fa-paper-plane"></i> Salvar
+
+                                   </button>
+
+                                   <button class="btn btn-primary disabled" v-else disabled>
+
+                                       <i class="fas fa-paper-plane"></i> Salvar
+
+                                   </button>
+
+                               </div>
+
+                           </div>
+
+                       </div>
+
+                   </div>
+
+               </div>
+
+           </div>
+
+       </div>
 
     </div>
 
@@ -135,7 +131,7 @@
     export default {
 
         /** Nome do componente atual **/
-        name: "HighlighterFileForm",
+        name: "HighlighterForm",
 
         /** Declaração de Componentes **/
         components: {
@@ -230,7 +226,7 @@
                     inputs: this.inputs
                 })
 
-                /** Caso tenha sucesso **/
+                    /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/

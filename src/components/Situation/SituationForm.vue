@@ -2,39 +2,49 @@
 
     <div>
 
-        <h4>
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <i class="far fa-folder-open mr-1"></i>Situações
+            <div class="navbar-brand">
 
-        </h4>
+                <i class="far fa-folder-open mr-1"></i>Situações/<span class="ml-1 badge badge-primary">Formulário</span>
 
-        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
+            </div>
 
-            <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-                <div class="media m-4">
+                <span class="navbar-toggler-icon"></span>
 
-                    <div class="media-body">
+            </button>
 
-                        <h3 class="mb-0 text-center">
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-                            <strong>
+                <ul class="navbar-nav ml-auto">
 
-                                Cancelar cadastro
+                    <li class="nav-item">
 
-                            </strong>
+                        <router-link v-bind:to="{name : 'highlighter-file-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="nav-link">
 
-                        </h3>
+                            <i class="fas fa-bars mr-1"></i>Listagem
 
-                        <h5 class="mt-2 text-center">
+                        </router-link>
 
-                            <router-link v-bind:to="{name : 'situation-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="stretched-link text-decoration-none badge badge-light">
+                    </li>
 
-                                Clique para cancelar
+                </ul>
 
-                            </router-link>
+            </div>
 
-                        </h5>
+        </nav>
+
+        <div class="col-md-12 mt-3">
+
+            <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
 
                     </div>
 
@@ -42,51 +52,37 @@
 
             </div>
 
-        </div>
-
-        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
-
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-dashed animate animate__fadeIn" v-else>
 
                 <div class="card-body">
 
-                    <Progress percent="100"></Progress>
+                    <div class="media my-3">
 
-                </div>
+                        <div class="media-body">
 
-            </div>
+                            <div class="row">
 
-        </div>
+                                <div class="col-md-12">
 
-        <div class="mt-3 card shadow-sm border-dashed animate animate__fadeIn" v-else>
+                                    <div class="row">
 
-            <div class="card-body">
+                                        <div class="col-md-6">
 
-                <div class="media my-3">
+                                            <div class="form-group">
 
-                    <div class="media-body">
+                                                <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
 
-                        <div class="row">
-
-                            <div class="col-md-12">
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-6">
 
-                                    <div class="col-md-6">
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
 
-                                            <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
+                                            </div>
 
                                         </div>
 
@@ -94,21 +90,21 @@
 
                                 </div>
 
-                            </div>
+                                <div class="col-md-12 text-right mt-3">
 
-                            <div class="col-md-12 text-right mt-3">
+                                    <button class="btn btn-primary" v-on:click="Save()" v-if="inputs.name && inputs.description">
 
-                                <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.description">
+                                        <i class="fas fa-paper-plane"></i> Salvar
 
-                                    <i class="fas fa-paper-plane"></i> Salvar
+                                    </button>
 
-                                </button>
+                                    <button class="btn btn-primary disabled" v-else disabled>
 
-                                <button class="btn btn-default disabled" v-else disabled>
+                                        <i class="fas fa-paper-plane"></i> Salvar
 
-                                    <i class="fas fa-paper-plane"></i> Salvar
+                                    </button>
 
-                                </button>
+                                </div>
 
                             </div>
 
@@ -135,7 +131,7 @@
     export default {
 
         /** Nome do componente atual **/
-        name: "SituatioForm",
+        name: "HighlighterForm",
 
         /** Declaração de Componentes **/
         components: {
@@ -155,29 +151,19 @@
 
                 },
                 /** Grupo de variáveis que guarda os dados de consultas sql's **/
-                query : {
+                query: {
 
-                    result : [],
+                    result: [],
 
                 },
                 /** Grupo de variáveis que guardar os dados dos campos do formulário **/
-                inputs : {
+                inputs: {
 
-                    situation_id   : null,
-                    name           : null,
-                    description    : null,
-                    date_register  : null,
-                    date_update    : null,
-                },
-                /** Grupo de variáveis que guardar os dados dos campos do arquivo **/
-                inputs_file: {
-
-                    name: [],
-                    name_auxiliary: [],
-                    part: [],
-                    length: [],
-                    extension: [],
-
+                    situation_id: this.$route.params.situation_id,
+                    name: null,
+                    description: null,
+                    date_register: null,
+                    date_update: null,
                 },
                 /** Grupo de variaveis da sessão do usuário **/
                 session: {
@@ -200,7 +186,7 @@
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=SITUATION&ACTION=SITUATION_SAVE', {
+                axios.post('router.php?TABLE=SITUATION&ACTION=SITUATION_EDIT_FORM', {
                     inputs: this.inputs
                 })
 
@@ -240,7 +226,7 @@
                     inputs: this.inputs
                 })
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/
@@ -251,7 +237,7 @@
                                 window.setTimeout(() => {
 
                                     this.$router.replace({
-                                        name : 'situation-datagrid',
+                                        name: 'situation-datagrid',
                                         params: {
                                             user_id: this.session.user_id,
                                             user_function_id: this.session.user_function_id
@@ -288,12 +274,12 @@
         mounted() {
 
             /** Verifico se é edição **/
-            if (this.$route.params.situation_id > 0) {
+            if (this.$route.params.situation_form > 0) {
 
                 this.EditForm();
 
             }
-            console.log("Componente 'SituatioForm', montado com sucesso!");
+            console.log("Componente 'SituationForm', montado com sucesso!");
 
         }
 

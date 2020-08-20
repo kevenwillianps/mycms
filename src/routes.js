@@ -209,7 +209,7 @@ const routes = [
     {
 
         /** Listagem de Usuários **/
-        path: '/users-datagrid/:user_id/:user_function_id',
+        path: '/users-datagrid/',
         component: UsersDatagrid,
         name: 'users-datagrid',
 
@@ -218,7 +218,7 @@ const routes = [
     {
 
         /** Listagem de Usuários **/
-        path: '/users-form/:user_id/:user_function_id',
+        path: '/users-form/:user_id/',
         component: UsersForm,
         name: 'users-form',
 
@@ -317,7 +317,7 @@ const routes = [
     {
 
         /** Listagem de Funções de Usuário **/
-        path: '/user-function-datagrid/:user_id/:user_function_id',
+        path: '/user-function-datagrid/',
         component: UserFunctionDatagrid,
         name: 'user-function-datagrid',
 
@@ -326,7 +326,7 @@ const routes = [
     {
 
         /** Listagem de Funções de Usuário **/
-        path: '/user-function-form/:user_id/:user_function_id',
+        path: '/user-function-form/:user_function_id',
         component: UserFunctionForm,
         name: 'user-function-form',
 

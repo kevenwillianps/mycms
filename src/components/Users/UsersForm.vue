@@ -2,39 +2,49 @@
 
     <div>
 
-        <h4>
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <i class="far fa-folder-open mr-1"></i>Usuários
+            <div class="navbar-brand">
 
-        </h4>
+                <i class="far fa-folder-open mr-1"></i>Usuários/<span class="ml-1 badge badge-primary">Formulário</span>
 
-        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
+            </div>
 
-            <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-                <div class="media m-4">
+                <span class="navbar-toggler-icon"></span>
 
-                    <div class="media-body">
+            </button>
 
-                        <h3 class="mb-0 text-center">
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-                            <strong>
+                <ul class="navbar-nav ml-auto">
 
-                                Cancelar publicação
+                    <li class="nav-item">
 
-                            </strong>
+                        <router-link v-bind:to="{name : 'users-datagrid'}" class="nav-link">
 
-                        </h3>
+                            <i class="fas fa-bars mr-1"></i>Listagem
 
-                        <h5 class="mt-2 text-center">
+                        </router-link>
 
-                            <router-link v-bind:to="{name : 'users-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="stretched-link text-decoration-none badge badge-light">
+                    </li>
 
-                                Clique para cancelar
+                </ul>
 
-                            </router-link>
+            </div>
 
-                        </h5>
+        </nav>
+
+        <div class="col-md-12 mt-3">
+
+            <div class="animate animate__fadeIn" v-if="form.progress_bar">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
 
                     </div>
 
@@ -42,90 +52,76 @@
 
             </div>
 
-        </div>
-
-        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
-
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-dashed animate animate__fadeIn" v-else>
 
                 <div class="card-body">
 
-                    <Progress percent="100"></Progress>
+                    <div class="media my-3">
 
-                </div>
+                        <div class="media-body">
 
-            </div>
+                            <div class="row">
 
-        </div>
+                                <div class="col-md-12">
 
-        <div class="mt-3 card shadow-sm border-dashed animate animate__fadeIn" v-else>
+                                    <div class="row">
 
-            <div class="card-body">
+                                        <div class="col-md-4">
 
-                <div class="media my-3">
+                                            <div class="form-group">
 
-                    <div class="media-body">
+                                                <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
 
-                        <div class="row">
-
-                            <div class="col-md-12">
-
-                                <div class="row">
-
-                                    <div class="col-md-4">
-
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-4">
 
-                                    <div class="col-md-4">
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <input type="date" class="form-control" placeholder="Data de Nascimento" v-model="inputs.date_birth">
 
-                                            <input type="date" class="form-control" placeholder="Data de Nascimento" v-model="inputs.date_birth">
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-4">
-
-                                        <div class="form-group">
-
-                                            <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password">
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-4">
 
-                                    <div class="col-md-6">
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password">
 
-                                            <input type="email" class="form-control" placeholder="Email" v-model="inputs.email">
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-6">
 
-                                    <div class="col-md-6">
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <input type="email" class="form-control" placeholder="Email" v-model="inputs.email">
 
-                                            <select class="form-control custom-select" v-model="inputs.user_function_id">
+                                            </div>
 
-                                                <option value="0" selected>Função</option>
-                                                <option v-bind:value="result.user_function_id" v-for="(result, index) in query.user_functions" v-bind:key="index">
+                                        </div>
 
-                                                    {{ result.name }}
+                                        <div class="col-md-6">
 
-                                                </option>
+                                            <div class="form-group">
 
-                                            </select>
+                                                <select class="form-control custom-select" v-model="inputs.user_function_id">
+
+                                                    <option value="0" selected>Função</option>
+                                                    <option v-bind:value="result.user_function_id" v-for="(result, index) in query.user_functions" v-bind:key="index">
+
+                                                        {{ result.name }}
+
+                                                    </option>
+
+                                                </select>
+
+                                            </div>
 
                                         </div>
 
@@ -133,15 +129,13 @@
 
                                 </div>
 
-                            </div>
+                                <div class="col-md-12">
 
-                            <div class="col-md-12">
+                                    <div class="form-group">
 
-                                <div class="form-group">
+                                        <div class="border-dashed-default rounded">
 
-                                    <div class="border-dashed-default rounded">
-
-                                        <div class="file-drop-area" v-if="!inputs_file.file">
+                                            <div class="file-drop-area" v-if="!inputs_file.file">
 
                                                 <span class="fake-btn mr-3">
 
@@ -149,27 +143,29 @@
 
                                                 </span>
 
-                                            <input class="file-input" type="file" v-on:change="onChange">
+                                                <input class="file-input" type="file" v-on:change="onChange">
 
-                                        </div>
+                                            </div>
 
-                                        <div v-else>
+                                            <div v-else>
 
-                                            <div class="media">
+                                                <div class="media">
 
-                                                <div class="media-body p-3">
+                                                    <div class="media-body p-3">
 
-                                                    <h3 class="mt-0">
+                                                        <h3 class="mt-0">
 
-                                                        {{ inputs_file.name_auxiliary }}
+                                                            {{ inputs_file.name_auxiliary }}
 
-                                                    </h3>
+                                                        </h3>
 
-                                                    <button class="btn btn-default" v-on:click="ResetFormFile()">
+                                                        <button class="btn btn-primary" v-on:click="ResetFormFile()">
 
-                                                        <i class="fas fa-eraser mr-1"></i> Remover Arquivo
+                                                            <i class="fas fa-eraser mr-1"></i> Remover Arquivo
 
-                                                    </button>
+                                                        </button>
+
+                                                    </div>
 
                                                 </div>
 
@@ -181,21 +177,21 @@
 
                                 </div>
 
-                            </div>
+                                <div class="col-md-12 text-right mt-3">
 
-                            <div class="col-md-12 text-right mt-3">
+                                    <button class="btn btn-primary" v-on:click="Save()" v-if="inputs.name && inputs.date_birth && inputs.email && inputs.user_function_id">
 
-                                <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.date_birth && inputs.password && inputs.email && inputs.user_function_id">
+                                        <i class="fas fa-paper-plane"></i> Salvar
 
-                                    <i class="fas fa-paper-plane"></i> Salvar
+                                    </button>
 
-                                </button>
+                                    <button class="btn btn-primary disabled" v-else disabled>
 
-                                <button class="btn btn-default disabled" v-else disabled>
+                                        <i class="fas fa-paper-plane"></i> Salvar
 
-                                    <i class="fas fa-paper-plane"></i> Salvar
+                                    </button>
 
-                                </button>
+                                </div>
 
                             </div>
 
@@ -255,7 +251,7 @@
                 /** Grupo de variáveis que guardar os dados dos campos do formulário **/
                 inputs : {
 
-                    user_id          : null,
+                    user_id          : this.$route.params.user_id,
                     user_function_id : null,
                     situation_id     : null,
                     name             : null,
@@ -311,7 +307,7 @@
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=USER&ACTION=USER_SAVE', {
+                axios.post('router.php?TABLE=USER&ACTION=USER_EDIT_FORM', {
                     inputs: this.inputs
                 })
 
@@ -543,7 +539,7 @@
         mounted() {
 
             /** Verifico se é edição **/
-            if (this.$route.params.content_id > 0) {
+            if (this.$route.params.user_id > 0) {
 
                 this.EditForm();
 

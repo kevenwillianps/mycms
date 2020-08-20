@@ -16,6 +16,7 @@ class Highlighter
     /** Variaveis que irei utilizar na classe **/
     private $connection = null;
     private $highlighter_id = 0;
+    private $user_id = null;
     private $name = null;
     private $description = null;
     private $date_register = 0;
@@ -96,11 +97,12 @@ class Highlighter
     }
 
     /** Insere/autualiza um registro no banco de dados **/
-    public function save($highlighter_id, $name, $description, $date_register, $date_update)
+    public function save($highlighter_id, $user_id, $name, $description, $date_register, $date_update)
     {
 
         /** Parâmetros de entrada **/
         $this->highlighter_id = (int)$highlighter_id;
+        $this->user_id        = (string)$user_id;
         $this->name           = (string)$name;
         $this->description    = (string)$description;
         $this->date_register  = (string)$date_register;
@@ -110,11 +112,11 @@ class Highlighter
         if ($this->highlighter_id == 0) {
 
             /** Consulta SQL **/
-            $sql = "INSERT INTO highlighter(highlighter_id, name, description, date_register, date_update)VALUES(:highlighter_id, :name, :description, :date_register, :date_update)";
+            $sql = "INSERT INTO highlighter(highlighter_id, user_id, name, description, date_register, date_update)VALUES(:highlighter_id, :user_id, :name, :description, :date_register, :date_update)";
         } else {
 
             /** Consulta SQL **/
-            $sql = "UPDATE highlighter set highlighter_id = :highlighter_id, name = :name, description = :description, date_register = :date_register, date_update = :date_update WHERE situation_id = :situation_id";
+            $sql = "UPDATE highlighter set highlighter_id = :highlighter_id, user_id = :user_id, name = :name, description = :description, date_register = :date_register, date_update = :date_update WHERE situation_id = :situation_id";
         }
 
         /** Preparo o SQL **/
@@ -123,6 +125,7 @@ class Highlighter
         /** Preencho os parâmetros do sql **/
         $stmt->bindValue(':highlighter_id', $this->highlighter_id);
         $stmt->bindValue(':name', $this->name);
+        $stmt->bindValue(':user_id', $this->user_id);
         $stmt->bindValue(':description', $this->description);
         $stmt->bindValue(':date_register', $this->date_register);
         $stmt->bindValue(':date_update', $this->date_update);

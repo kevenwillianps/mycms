@@ -2,39 +2,49 @@
 
     <div>
 
-        <h4>
+        <nav class="navbar navbar-expand-lg navbar-light bg-default mb-0">
 
-            <i class="far fa-folder-open mr-1"></i>Cargos
+            <div class="navbar-brand">
 
-        </h4>
+                <i class="far fa-folder-open mr-1"></i>Cargos de Usuários/<span class="ml-1 badge badge-primary">Formulário</span>
 
-        <div class="card card-hover shadow-sm border border-dashed" v-if="session.user_function_id == 1">
+            </div>
 
-            <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#method_navbar_header" aria-controls="method_navbar_header" aria-expanded="false" aria-label="Toggle navigation">
 
-                <div class="media m-4">
+                <span class="navbar-toggler-icon"></span>
 
-                    <div class="media-body">
+            </button>
 
-                        <h3 class="mb-0 text-center">
+            <div class="collapse navbar-collapse" id="method_navbar_header">
 
-                            <strong>
+                <ul class="navbar-nav ml-auto">
 
-                                Cancelar publicação
+                    <li class="nav-item">
 
-                            </strong>
+                        <router-link v-bind:to="{name : 'user-function-datagrid'}" class="nav-link">
 
-                        </h3>
+                            <i class="fas fa-bars mr-1"></i>Listagem
 
-                        <h5 class="mt-2 text-center">
+                        </router-link>
 
-                            <router-link v-bind:to="{name : 'user-function-datagrid', params : {user_id : session.user_id, user_function_id : session.user_function_id}}" class="stretched-link text-decoration-none badge badge-light">
+                    </li>
 
-                                Clique para cancelar
+                </ul>
 
-                            </router-link>
+            </div>
 
-                        </h5>
+        </nav>
+
+        <div class="col-md-12 mt-3">
+
+            <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body">
+
+                        <Progress percent="100"></Progress>
 
                     </div>
 
@@ -42,136 +52,53 @@
 
             </div>
 
-        </div>
-
-        <div class="mt-3 animate animate__fadeIn" v-if="form.progress_bar">
-
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-dashed animate animate__fadeIn" v-else>
 
                 <div class="card-body">
 
-                    <Progress percent="100"></Progress>
+                    <div class="media my-3">
 
-                </div>
+                        <div class="media-body">
 
-            </div>
+                            <div class="row">
 
-        </div>
+                                <div class="col-md-12">
 
-        <div class="mt-3 card shadow-sm border-dashed animate animate__fadeIn" v-else>
+                                    <div class="row">
 
-            <div class="card-body">
+                                        <div class="col-md-4">
 
-                <div class="media my-3">
+                                            <div class="form-group">
 
-                    <div class="media-body">
+                                                <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
 
-                        <div class="row">
-
-                            <div class="col-md-12">
-
-                                <div class="row">
-
-                                    <div class="col-md-4">
-
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" placeholder="Nome" v-model="inputs.name">
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-4">
 
-                                    <div class="col-md-4">
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Descrição" v-model="inputs.description">
 
-                                            <input type="date" class="form-control" placeholder="Data de Nascimento" v-model="inputs.date_birth">
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-4">
-
-                                        <div class="form-group">
-
-                                            <input type="password" class="form-control" placeholder="Senha" v-model="inputs.password">
+                                            </div>
 
                                         </div>
 
-                                    </div>
+                                        <div class="col-md-4">
 
-                                    <div class="col-md-6">
+                                            <div class="form-group">
 
-                                        <div class="form-group">
+                                                <select class="custom-select" v-model="inputs.situation_id" id="situation_id">
 
-                                            <input type="email" class="form-control" placeholder="Email" v-model="inputs.email">
+                                                    <option v-bind:value="result.situation_id" v-for="(result, index) in query.result_situations" v-bind:key="index">
 
-                                        </div>
+                                                        {{ result.name }}
 
-                                    </div>
+                                                    </option>
 
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-
-                                            <select class="form-control custom-select" v-model="inputs.user_function_id">
-
-                                                <option value="0" selected>Função</option>
-                                                <option v-bind:value="result.user_function_id" v-for="(result, index) in query.user_functions" v-bind:key="index">
-
-                                                    {{ result.name }}
-
-                                                </option>
-
-                                            </select>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-12">
-
-                                <div class="form-group">
-
-                                    <div class="border-dashed-default rounded">
-
-                                        <div class="file-drop-area" v-if="!inputs_file.file">
-
-                                                <span class="fake-btn mr-3">
-
-                                                    Escolha a foto de perfil
-
-                                                </span>
-
-                                            <input class="file-input" type="file" v-on:change="onChange">
-
-                                        </div>
-
-                                        <div v-else>
-
-                                            <div class="media">
-
-                                                <div class="media-body p-3">
-
-                                                    <h3 class="mt-0">
-
-                                                        {{ inputs_file.name_auxiliary }}
-
-                                                    </h3>
-
-                                                    <button class="btn btn-default" v-on:click="ResetFormFile()">
-
-                                                        <i class="fas fa-eraser mr-1"></i> Remover Arquivo
-
-                                                    </button>
-
-                                                </div>
+                                                </select>
 
                                             </div>
 
@@ -181,21 +108,21 @@
 
                                 </div>
 
-                            </div>
+                                <div class="col-md-12 text-right mt-3">
 
-                            <div class="col-md-12 text-right mt-3">
+                                    <button class="btn btn-primary" v-on:click="Save()" v-if="inputs.name && inputs.description">
 
-                                <button class="btn btn-default" v-on:click="Save()" v-if="inputs.name && inputs.date_birth && inputs.password && inputs.email && inputs.user_function_id">
+                                        <i class="fas fa-paper-plane"></i> Salvar
 
-                                    <i class="fas fa-paper-plane"></i> Salvar
+                                    </button>
 
-                                </button>
+                                    <button class="btn btn-primary disabled" v-else disabled>
 
-                                <button class="btn btn-default disabled" v-else disabled>
+                                        <i class="fas fa-paper-plane"></i> Salvar
 
-                                    <i class="fas fa-paper-plane"></i> Salvar
+                                    </button>
 
-                                </button>
+                                </div>
 
                             </div>
 
@@ -242,25 +169,25 @@
 
                 },
                 /** Grupo de variáveis que guarda os dados de consultas sql's **/
-                query : {
+                query: {
 
-                    result         : [],
-                    message        : null,
-                    user_functions : [],
+                    result: [],
+                    result_situations: [],
 
                 },
                 /** Grupo de variáveis que guardar os dados dos campos do formulário **/
-                inputs : {
+                inputs: {
 
                     user_function_id : this.$route.params.user_function_id,
-                    situation_id     : null,
-                    name             : null,
-                    description      : null,
-                    c_execute        : null,
-                    r_execute        : null,
-                    u_execute        : null,
-                    d_execute        : null,
-
+                    situation_id : null,
+                    name : null,
+                    description : null,
+                    c_execute : null,
+                    r_execute : null,
+                    u_execute : null,
+                    d_execute : null,
+                    date_register : null,
+                    date_update : null,
                 },
                 /** Grupo de variaveis da sessão do usuário **/
                 session: {
@@ -276,6 +203,51 @@
 
         methods: {
 
+            /** Listagem de 'Situações' **/
+            ListSituations() {
+
+                /** Deixo a barra de progresso disponivel **/
+                this.form.progress_bar = true;
+
+                /** Envio uma requisição ao meu backend **/
+                axios.post('router.php?TABLE=SITUATION&ACTION=SITUATION_DATAGRID', )
+
+                /** Caso tenha sucesso **/
+                    .then(response => {
+
+                        switch (response.data.cod){
+
+                            case 404:
+
+                                location.reload();
+                                break;
+
+                            default :
+
+                                /** Guardo minha resposta em uma váriavel **/
+                                this.query.result_situations = response.data.result;
+
+                                /** Defino um delay no progresso **/
+                                setTimeout(() => {
+
+                                    this.form.progress_bar = false;
+
+                                }, 1000);
+                                break;
+
+                        }
+
+                    })
+
+                    /** Caso tenha falha **/
+                    .catch(response => {
+
+                        console.log('Erro:' + response);
+
+                    });
+
+            },
+
             /** Busco o 'Conteúdo' **/
             EditForm() {
 
@@ -283,18 +255,18 @@
                 this.form.progress_bar = true;
 
                 /** Envio uma requisição ao meu backend **/
-                axios.post('router.php?TABLE=USER_FUNCTION&ACTION=USER_FUNCTION_EDIT_FORM', {
+                axios.post('router.php?table=user_function&action=user_function_edit_form', {
                     inputs: this.inputs
                 })
 
-                    /** Caso tenha sucesso **/
+                /** caso tenha sucesso **/
                     .then(response => {
 
-                        /** Guardo minha resposta em uma váriavel **/
+                        /** guardo minha resposta em uma váriavel **/
                         this.inputs = response.data.result;
 
-                        /** Defino um delay no progresso **/
-                        setTimeout(() => {
+                        /** defino um delay no progresso **/
+                        window.setTimeout(() => {
 
                             this.form.progress_bar = false;
                             this.form.show_form = true;
@@ -303,10 +275,10 @@
 
                     })
 
-                    /** Caso tenha falha **/
+                    /** caso tenha falha **/
                     .catch(response => {
 
-                        console.log('Erro:' + response);
+                        console.log('erro:' + response);
 
                     });
 
@@ -323,7 +295,7 @@
                     inputs: this.inputs
                 })
 
-                    /** Caso tenha sucesso **/
+                /** Caso tenha sucesso **/
                     .then(response => {
 
                         /** Verifico a categoria do meu retorno **/
@@ -335,10 +307,6 @@
 
                                     this.$router.replace({
                                         name: 'user-function-datagrid',
-                                        params: {
-                                            user_id: this.session.user_id,
-                                            user_function_id: this.session.user_function_id
-                                        }
                                     });
 
                                 }, 1000);
@@ -376,6 +344,7 @@
                 this.EditForm();
 
             }
+            this.ListSituations();
             console.log("Componente 'UserFunctionForm', montado com sucesso!");
 
         }

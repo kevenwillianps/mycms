@@ -21,6 +21,9 @@ try {
     /** Verifico se a sessão esta ativa **/
     if ($main->verifySession()){
 
+        /** Capturo meus campos envios por json **/
+        $inputs = json_decode(file_get_contents('php://input'), true);
+
         /** Parâmetros de entrada  **/
         $user_id = isset($inputs['inputs']['user_id']) ? (int)$main->antiInjection($inputs['inputs']['user_id']) : 0;
 
